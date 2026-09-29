@@ -1,0 +1,5 @@
+Flask==3.0.0
+# Si usas librerías para el pptx o IA, quita el "#" y agrégalas aquí abajo, por ejemplo:
+# python-pptx
+# scikit-learn
+# numpy
