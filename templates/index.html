@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Educativo de Inteligencia Artificial | Glosario, Historia, Clasificación, ML y Ensayo</title>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6.4 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+        }
+
+        body {
+            background-color: var(--slate-50);
+            color: var(--slate-800);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navbar personalizado */
+        .navbar-custom {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--slate-200);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            z-index: 1030;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--slate-600);
+            font-weight: 500;
+            font-size: 0.92rem;
+            padding: 0.55rem 1.05rem;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+
+        .nav-pills .nav-link:hover:not(.active) {
+            background-color: var(--slate-100);
+            color: var(--slate-900);
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+
+        /* Tarjetas de Glosario */
+        .card-term {
+            background-color: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .card-term:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-img-top {
+            height: 165px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .badge-nivel {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .nivel-comun { background-color: #dcfce7; color: #15803d; }
+        .nivel-poco_comun { background-color: #e0f2fe; color: #0369a1; }
+        .nivel-prueba { background-color: #fef3c7; color: #b45309; }
+        .nivel-emergente { background-color: #f3e8ff; color: #6b21a8; }
+
+        /* Línea de tiempo */
+        .timeline-container { position: relative; padding: 20px 0; }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #cbd5e1;
+            transform: translateX(-50%);
+        }
+        .timeline-item { position: relative; margin-bottom: 45px; }
+        .timeline-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 0 5px #ffffff, 0 6px 12px rgba(0, 0, 0, 0.12);
+        }
+        .timeline-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+        }
+        .timeline-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 24px rgba(0, 0, 0, 0.07);
+        }
+        .timeline-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--slate-200);
+        }
+        .curiosidad-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+        }
+
+        /* Clasificación */
+        .clasif-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+        .clasif-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+        }
+        .clasif-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        /* Machine Learning */
+        .ml-paradigma-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 14px;
+            padding: 24px;
+            height: 100%;
+            transition: all 0.25s ease;
+        }
+        .ml-paradigma-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .step-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: var(--primary);
+        }
+
+        .demo-box {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .code-block {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            font-size: 0.85rem;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        /* Ensayo */
+        .ensayo-paper {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            padding: 45px 50px;
+        }
+
+        @media (max-width: 768px) {
+            .ensayo-paper { padding: 24px 20px; }
+        }
+
+        .ensayo-section {
+            padding-bottom: 28px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .ensayo-section:last-child {
+            border-bottom: none;
+        }
+
+        .quote-callout {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 18px 22px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .badge-chip {
+            background-color: var(--slate-100);
+            color: var(--slate-700);
+            font-size: 0.82rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--slate-200);
+            color: var(--slate-500);
+        }
+    </style>
+</head>
+<body class="d-flex flex-column">
+
+    <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
+    <nav class="navbar navbar-expand-xl navbar-custom sticky-top py-2">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="#" onclick="mostrarSeccion('glosario'); return false;">
+                <div class="bg-primary text-white p-2 rounded-3 me-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                    <span class="d-block lh-1 fs-5">Portal IA</span>
+                    <small class="text-muted fw-normal" style="font-size: 0.72rem;">Ciencias de la Computación</small>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarMain">
+                <ul class="nav nav-pills gap-1 my-2 my-xl-0 flex-wrap justify-content-center">
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'glosario' %}active{% endif %}" id="btn-glosario" onclick="mostrarSeccion('glosario')">
+                            <i class="fa-solid fa-book-bookmark me-2"></i>Glosario de IA
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'timeline' %}active{% endif %}" id="btn-timeline" onclick="mostrarSeccion('timeline')">
+                            <i class="fa-solid fa-timeline me-2"></i>Línea de Tiempo
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'clasificacion' %}active{% endif %}" id="btn-clasificacion" onclick="mostrarSeccion('clasificacion')">
+                            <i class="fa-solid fa-layer-group me-2"></i>Clasificación de IA
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'ml' %}active{% endif %}" id="btn-ml" onclick="mostrarSeccion('ml')">
+                            <i class="fa-solid fa-brain-circuit me-2"></i>Machine Learning
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'ensayo' %}active{% endif %}" id="btn-ensayo" onclick="mostrarSeccion('ensayo')">
+                            <i class="fa-solid fa-scale-balanced me-2"></i>Ensayo Ético
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-none d-md-flex align-items-center gap-2">
+                <a href="/static/Glosario_y_Evolucion_IA.pptx" download class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    <i class="fa-solid fa-file-powerpoint me-1"></i>Descargar PPTX
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ======================================================================= -->
+    <!-- APARTADO 1: GLOSARIO DE IA (Módulo glosario.py)                          -->
+    <!-- ======================================================================= -->
+    <section id="sec-glosario" class="py-4 {% if seccion_activa != 'glosario' %}d-none{% endif %}">
+        <div class="container">
+            <div class="text-center mb-4">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: glosario.py
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Glosario Interactivo de Inteligencia Artificial</h2>
+                <p class="text-secondary small max-w-2xl mx-auto">
+                    Catálogo de 20 conceptos técnicos fundamentales analizados a profundidad y clasificados por su nivel de adopción e impacto tecnológico.
+                </p>
+
+                <!-- Buscador de Términos -->
+                <form action="/" method="GET" class="mx-auto my-3" style="max-width: 520px;">
+                    <input type="hidden" name="sec" value="glosario">
+                    {% if nivel_actual %}<input type="hidden" name="nivel" value="{{ nivel_actual }}">{% endif %}
+                    <div class="input-group shadow-sm">
+                        <input type="text" name="q" class="form-control border-end-0 py-2 ps-3" placeholder="Buscar concepto, palabra clave o aplicación..." value="{{ query }}">
+                        <button class="btn btn-primary px-4" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        {% if query %}
+                        <a href="/?sec=glosario" class="btn btn-outline-secondary" title="Limpiar búsqueda">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <!-- Filtros por nivel de uso -->
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                    <a href="/?sec=glosario&nivel=" class="btn btn-sm {% if not nivel_actual %}btn-dark{% else %}btn-outline-secondary{% endif %} rounded-pill px-3">
+                        Todos ({{ stats_glosario.total }})
+                    </a>
+                    <a href="/?sec=glosario&nivel=comun" class="btn btn-sm {% if nivel_actual == 'comun' %}btn-success{% else %}btn-outline-success{% endif %} rounded-pill px-3">
+                        5 Muy Comunes
+                    </a>
+                    <a href="/?sec=glosario&nivel=poco_comun" class="btn btn-sm {% if nivel_actual == 'poco_comun' %}btn-info text-white{% else %}btn-outline-info{% endif %} rounded-pill px-3">
+                        5 Poco Comunes
+                    </a>
+                    <a href="/?sec=glosario&nivel=prueba" class="btn btn-sm {% if nivel_actual == 'prueba' %}btn-warning text-white{% else %}btn-outline-warning{% endif %} rounded-pill px-3">
+                        5 En Prueba
+                    </a>
+                    <a href="/?sec=glosario&nivel=emergente" class="btn btn-sm {% if nivel_actual == 'emergente' %}btn-secondary{% else %}btn-outline-secondary{% endif %} rounded-pill px-3">
+                        5 Apenas Apareciendo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Listado de tarjetas de términos -->
+            <div class="row g-4">
+                {% for item in terminos %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-term h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <img src="{{ item.imagen }}" class="card-img-top" alt="{{ item.termino }}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&auto=format&fit=crop'">
+                            <div class="card-body p-3 pb-2">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge badge-nivel nivel-{{ item.nivel_code }}">{{ item.nivel }}</span>
+                                    <span class="text-muted small fw-semibold">#{{ item.id }}</span>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ item.termino }}</h6>
+                                <span class="badge bg-light text-muted border mb-2 small">{{ item.categoria }}</span>
+                                <p class="text-secondary small mb-2" style="line-height: 1.55; text-align: justify;">
+                                    {{ item.def }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pt-0 pb-3 px-3">
+                            <div class="bg-light p-2 rounded-2 small text-muted">
+                                <strong class="text-dark d-block" style="font-size: 0.76rem;"><i class="fa-solid fa-bolt text-warning me-1"></i>Aplicación real:</strong>
+                                <span style="font-size: 0.78rem;">{{ item.aplicacion }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-12 text-center py-5">
+                    <i class="fa-regular fa-face-frown fa-3x text-muted mb-3"></i>
+                    <h5 class="text-dark fw-bold">No se encontraron conceptos para tu búsqueda</h5>
+                    <p class="text-secondary small">Intenta buscar otro término o restablecer los filtros de categoría.</p>
+                    <a href="/?sec=glosario" class="btn btn-sm btn-primary rounded-pill px-4 mt-2">Restablecer Glosario</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- APARTADO 2: LÍNEA DE TIEMPO (Módulo linea_tiempo.py)                    -->
+    <!-- ======================================================================= -->
+    <section id="sec-timeline" class="py-4 {% if seccion_activa != 'timeline' %}d-none{% endif %}">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: linea_tiempo.py
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Evolución Histórica de la Inteligencia Artificial</h2>
+                <p class="text-secondary small max-w-2xl mx-auto">
+                    Recorrido cronológico a través de 10 hitos clave desde los pioneros de 1950 hasta los agentes autónomos de frontera en la actualidad.
+                </p>
+            </div>
+
+            <div class="timeline-container position-relative">
+                <div class="timeline-line d-none d-md-block"></div>
+
+                {% for h in hitos %}
+                <div class="timeline-item row g-0 align-items-center mb-5">
+                    <!-- Tarjeta (Alterna izquierda y derecha en desktop) -->
+                    <div class="col-md-5 {% if loop.index % 2 == 0 %}order-md-2{% else %}order-md-1{% endif %}">
+                        <div class="timeline-card">
+                            <img src="{{ h.imagen }}" class="timeline-img" alt="{{ h.titulo }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop';">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary rounded-pill px-3 py-1">{{ h.periodo }}</span>
+                                <span class="fw-semibold text-muted small"><i class="fa-regular fa-calendar me-1"></i>{{ h.fecha }}</span>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">{{ h.titulo }}</h5>
+                            
+                            <ul class="list-unstyled mb-3 small text-secondary">
+                                {% for item in h.hitos %}
+                                <li class="mb-1"><i class="fa-solid fa-angle-right text-primary me-2"></i>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <p class="small text-slate-700 mb-3" style="line-height: 1.6; text-align: justify;">
+                                {{ h.desc }}
+                            </p>
+
+                            <div class="curiosidad-box">
+                                <strong class="text-amber-800 d-block mb-1"><i class="fa-solid fa-lightbulb me-1 text-warning"></i>¿Sabías que...?</strong>
+                                {{ h.curiosidad }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insignia Central con Icono -->
+                    <div class="col-md-2 text-center order-md-2 my-3 my-md-0 d-none d-md-block position-relative">
+                        <div class="timeline-badge" style="background-color: {{ h.color }};">
+                            <i class="fa-solid {{ h.icono }}"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 {% if loop.index % 2 == 0 %}order-md-1{% else %}order-md-3{% endif %}"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- APARTADO 3: CLASIFICACIÓN DE IA (Módulo clasificacion.py)               -->
+    <!-- ======================================================================= -->
+    <section id="sec-clasificacion" class="py-4 {% if seccion_activa != 'clasificacion' %}d-none{% endif %}">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: clasificacion.py
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Clasificación Estructural de la Inteligencia Artificial</h2>
+                <p class="text-secondary small max-w-2xl mx-auto">
+                    Niveles fundamentales de capacidad cognitiva y alcance operativo: IA Débil, IA Fuerte (AGI) y Superinteligencia Artificial (ASI).
+                </p>
+            </div>
+
+            <!-- Las 3 Categorías Clásicas -->
+            <div class="row g-4 mb-5">
+                {% for item in clasificacion %}
+                <div class="col-lg-4">
+                    <div class="clasif-card h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <img src="{{ item.imagen_gdrive }}" class="clasif-img" alt="{{ item.tipo }}" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&auto=format&fit=crop'">
+                            <div class="p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-{{ item.badge_color }} px-3 py-1 rounded-pill">{{ item.badge }}</span>
+                                    <i class="fa-solid {{ item.icono }} text-muted"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-1">{{ item.tipo }}</h5>
+                                <p class="text-primary small fw-semibold mb-3">{{ item.subtitulo }}</p>
+                                
+                                <p class="small text-secondary mb-3" style="text-align: justify;">
+                                    {{ item.definicion }}
+                                </p>
+
+                                <h6 class="fw-bold text-dark small mb-2"><i class="fa-solid fa-list-check me-2 text-primary"></i>Características esenciales:</h6>
+                                <ul class="list-unstyled mb-3">
+                                    {% for carac in item.caracteristicas %}
+                                    <li class="small text-secondary mb-2 d-flex align-items-start">
+                                        <i class="fa-solid fa-check text-success me-2 mt-1"></i>
+                                        <span>{{ carac }}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="bg-light p-2 rounded-2 small text-muted mb-2">
+                                    <strong class="text-dark d-block mb-1"><i class="fa-solid fa-shield-halved text-info me-1"></i>Límite / Estado:</strong>
+                                    {{ item.limites }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <a href="{{ item.enlace_original }}" target="_blank" class="btn btn-sm btn-outline-secondary w-100 rounded-pill">
+                                <i class="fa-brands fa-google-drive me-2 text-warning"></i>Ver Imagen Original en Google Drive
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Taxonomía Funcional Complementaria (Arend Hintze) -->
+            <div class="card p-4 border-0 shadow-sm rounded-4 bg-white mt-4">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary-subtle text-primary p-2 rounded-3 me-3">
+                        <i class="fa-solid fa-diagram-project fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-0">Taxonomía Funcional de Arend Hintze</h5>
+                        <p class="text-muted small mb-0">Clasificación complementaria según el nivel de consciencia y memoria operativa</p>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    {% for nf in niveles_funcionales %}
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bg-light p-3 rounded-3 h-100 border">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fa-solid {{ nf.icono }} text-primary me-2"></i>
+                                <h6 class="fw-bold text-dark mb-0 small">{{ nf.nombre }}</h6>
+                            </div>
+                            <p class="small text-secondary mb-2" style="font-size: 0.82rem;">{{ nf.desc }}</p>
+                            <span class="badge bg-white text-muted border text-truncate w-100" style="font-size: 0.75rem;" title="{{ nf.ejemplo }}">
+                                {{ nf.ejemplo }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- APARTADO 4: MACHINE LEARNING (Módulo machine_learning.py)               -->
+    <!-- ======================================================================= -->
+    <section id="sec-ml" class="py-4 {% if seccion_activa != 'ml' %}d-none{% endif %}">
+        <div class="container">
+            <!-- Encabezado -->
+            <div class="text-center mb-5">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: machine_learning.py
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Machine Learning: Conceptos y Demostrador Práctico</h2>
+                <p class="text-secondary small max-w-2xl mx-auto">
+                    Aprende los fundamentos teóricos y prueba un modelo interactivo de Machine Learning en vivo implementado en Python.
+                </p>
+            </div>
+
+            <!-- Definición formal -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="p-3 bg-primary-subtle text-primary rounded-3 fs-3">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-2">Definición Formal de Aprendizaje Automático</h5>
+                        <p class="text-secondary mb-0" style="text-align: justify;">
+                            {{ ml_info.teoria.definicion }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Los 3 Paradigmas -->
+            <h4 class="fw-bold text-dark mb-3"><i class="fa-solid fa-network-wired text-primary me-2"></i>Los Tres Paradigmas Fundamentales</h4>
+            <div class="row g-4 mb-5">
+                {% for p in ml_info.teoria.paradigmas %}
+                <div class="col-lg-4">
+                    <div class="ml-paradigma-card d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="p-2 rounded-3 text-white" style="background-color: {{ p.color }}; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid {{ p.icono }}"></i>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-1" style="background-color: {{ p.color }}15; color: {{ p.color }};">Paradigma</span>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">{{ p.nombre }}</h5>
+                            <p class="small text-secondary mb-3" style="text-align: justify;">
+                                {{ p.descripcion }}
+                            </p>
+
+                            <h6 class="small fw-bold text-dark mb-1">Tipos de problemas:</h6>
+                            <ul class="small text-secondary mb-3 ps-3">
+                                {% for t in p.tipos %}
+                                <li>{{ t }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <h6 class="small fw-bold text-dark mb-1">Algoritmos clave:</h6>
+                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                {% for a in p.algoritmos %}
+                                <span class="badge bg-light text-secondary border small">{{ a }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="bg-light p-2 rounded-2 small text-muted border">
+                            <strong class="text-dark d-block mb-1"><i class="fa-solid fa-lightbulb text-warning me-1"></i>Caso de aplicación:</strong>
+                            {{ p.ejemplo_uso }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Flujo de Trabajo (Pipeline) -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-5 bg-white">
+                <h5 class="fw-bold text-dark mb-4 text-center">
+                    <i class="fa-solid fa-diagram-next text-primary me-2"></i>Ciclo de Vida de un Modelo de Machine Learning (MLOps Pipeline)
+                </h5>
+                <div class="row g-3">
+                    {% for paso in ml_info.teoria.pipeline %}
+                    <div class="col-md-6 col-xl-3">
+                        <div class="p-3 bg-light rounded-3 h-100 border">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="step-circle me-2" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                    <i class="fa-solid {{ paso.icono }}"></i>
+                                </div>
+                                <strong class="small text-dark">{{ paso.paso }}</strong>
+                            </div>
+                            <p class="small text-muted mb-0" style="font-size: 0.82rem;">{{ paso.desc }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- DEMOSTRADOR PRÁCTICO EN VIVO (EJEMPLO 1) -->
+            <div class="demo-box p-4 p-lg-5 mb-5 border-primary border-opacity-25 shadow">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+                    <div>
+                        <span class="badge bg-danger-subtle text-danger fw-semibold px-3 py-1 rounded-pill mb-1">
+                            <i class="fa-solid fa-play me-1"></i>Ejemplo Práctico en Vivo
+                        </span>
+                        <h3 class="fw-bold text-dark mb-0">Demostrador: Clasificador Inteligente de Spam y Phishing</h3>
+                        <p class="text-muted small mb-0">Modelo probabilístico Naive Bayes entrenado con Procesamiento del Lenguaje Natural (NLP) en Python puro</p>
+                    </div>
+                    <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                        <i class="fa-solid fa-circle-check me-1"></i>Inferencia en Tiempo Real
+                    </span>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Columna de Entrada -->
+                    <div class="col-lg-6">
+                        <label class="form-label fw-semibold text-dark">Escribe o pega un mensaje para que el modelo lo clasifique:</label>
+                        <textarea id="ml-input-text" class="form-control mb-3" rows="4" placeholder="Ingresa un correo, SMS o mensaje aquí para probar la inferencia..."></textarea>
+                        
+                        <div class="mb-3">
+                            <small class="text-muted fw-semibold d-block mb-2">O prueba con estos mensajes predefinidos:</small>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for ex in ml_info.ejemplos_prueba %}
+                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" onclick="cargarEjemploML(`{{ ex.texto }}`)">
+                                    <i class="fa-solid {{ ex.icono }} me-1"></i>{{ ex.tipo }}
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <button id="btn-predecir-ml" class="btn btn-primary w-100 py-2 rounded-3 fw-semibold shadow-sm" onclick="ejecutarPrediccionML()">
+                            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Clasificar con Machine Learning
+                        </button>
+                    </div>
+
+                    <!-- Columna de Resultados de Inferencia -->
+                    <div class="col-lg-6">
+                        <div id="ml-loading" class="text-center py-5 d-none">
+                            <div class="spinner-border text-primary mb-2" role="status"></div>
+                            <p class="small text-muted mb-0">Calculando probabilidades con Naive Bayes...</p>
+                        </div>
+
+                        <div id="ml-result-card" class="bg-light p-4 rounded-3 border h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <span class="badge bg-secondary mb-2" id="ml-badge-status">Esperando análisis</span>
+                                <h4 class="fw-bold text-dark mb-2" id="ml-result-label">Introduce un texto para predecir</h4>
+                                <p class="small text-secondary mb-3" id="ml-result-desc">
+                                    El modelo tokenizará las palabras del texto, calculará la verosimilitud bayesiana con suavizado de Laplace y determinará si se trata de un intento de fraude/spam o de un mensaje legítimo.
+                                </p>
+
+                                <!-- Barras de Probabilidad -->
+                                <div class="mb-3" id="ml-prob-container">
+                                    <div class="d-flex justify-content-between small fw-semibold mb-1">
+                                        <span class="text-danger"><i class="fa-solid fa-triangle-exclamation me-1"></i>Spam / Phishing: <span id="ml-val-spam">--</span>%</span>
+                                        <span class="text-success"><i class="fa-solid fa-shield-check me-1"></i>Legítimo: <span id="ml-val-ham">--</span>%</span>
+                                    </div>
+                                    <div class="progress" style="height: 12px;">
+                                        <div id="ml-bar-spam" class="progress-bar bg-danger" style="width: 50%;"></div>
+                                        <div id="ml-bar-ham" class="progress-bar bg-success" style="width: 50%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Palabras Clave Detectadas -->
+                                <div class="mb-2">
+                                    <span class="small fw-bold text-dark d-block mb-1">Palabras clave detectadas por el modelo:</span>
+                                    <div id="ml-tokens-container" class="d-flex flex-wrap gap-1">
+                                        <span class="text-muted small">Sin tokens analizados aún</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 pt-2 border-top">
+                                <small class="text-muted" style="font-size: 0.78rem;">
+                                    <i class="fa-solid fa-circle-info text-primary me-1"></i>
+                                    Algoritmo: Naive Bayes Multinomial con suavizado Add-1 entrenado sobre dataset balanceado en español.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJEMPLO 2: CASO DE ESTUDIO DE REGRESIÓN -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-lg-5 bg-white">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                    <div>
+                        <span class="badge bg-info-subtle text-info fw-semibold px-3 py-1 rounded-pill mb-1">
+                            <i class="fa-solid fa-chart-line me-1"></i>Ejemplo Práctico 2: Problema Continuo
+                        </span>
+                        <h4 class="fw-bold text-dark mb-0">{{ ml_info.caso_regresion.titulo }}</h4>
+                    </div>
+                    <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill">Regresión Lineal Multivariable</span>
+                </div>
+
+                <p class="text-secondary small mb-3">
+                    {{ ml_info.caso_regresion.descripcion }}
+                </p>
+
+                <!-- Fórmula matemática -->
+                <div class="bg-light p-3 rounded-3 font-monospace small text-primary mb-4 border text-center">
+                    <strong>Modelo Matemático:</strong> {{ ml_info.caso_regresion.formula }}
+                </div>
+
+                <!-- Tabla de Dataset de Ejemplo -->
+                <h6 class="fw-bold text-dark small mb-2"><i class="fa-solid fa-table me-2 text-primary"></i>Datos Históricos Muestrales:</h6>
+                <div class="table-responsive mb-4">
+                    <table class="table table-sm table-bordered table-hover align-middle small">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Metros (m²)</th>
+                                <th>Habitaciones</th>
+                                <th>Baños</th>
+                                <th>Antigüedad</th>
+                                <th>Zona</th>
+                                <th class="table-info">Precio Real</th>
+                                <th class="table-success">Predicción ML</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in ml_info.caso_regresion.dataset_ejemplo %}
+                            <tr>
+                                <td>{{ fila.metros }} m²</td>
+                                <td>{{ fila.habitaciones }}</td>
+                                <td>{{ fila.banos }}</td>
+                                <td>{{ fila.antiguedad }} años</td>
+                                <td><span class="badge bg-light text-dark border">{{ fila.zona }}</span></td>
+                                <td class="fw-bold text-dark">{{ fila.precio_real }}</td>
+                                <td class="fw-bold text-success">{{ fila.predicho }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Métricas de Desempeño -->
+                <h6 class="fw-bold text-dark small mb-2"><i class="fa-solid fa-gauge-high me-2 text-primary"></i>Métricas de Evaluación del Modelo:</h6>
+                <div class="row g-3 mb-4">
+                    {% for m in ml_info.caso_regresion.metricas %}
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border h-100">
+                            <span class="small text-muted d-block">{{ m.nombre }}</span>
+                            <span class="fs-5 fw-bold text-primary">{{ m.valor }}</span>
+                            <p class="small text-secondary mb-0 mt-1" style="font-size: 0.8rem;">{{ m.interpretacion }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Código de Entrenamiento en Python -->
+                <h6 class="fw-bold text-dark small mb-2"><i class="fa-brands fa-python me-2 text-warning"></i>Código de Implementación con Scikit-Learn:</h6>
+                <div class="position-relative">
+                    <pre class="code-block mb-0"><code>{{ ml_info.caso_regresion.codigo_python }}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- APARTADO 5: ENSAYO DE ÉTICA Y SOCIEDAD (Módulo ensayo.py)               -->
+    <!-- ======================================================================= -->
+    <section id="sec-ensayo" class="py-4 {% if seccion_activa != 'ensayo' %}d-none{% endif %}">
+        <div class="container">
+            <!-- Encabezado del Ensayo -->
+            <div class="text-center mb-4">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: ensayo.py
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Ensayo Académico: Ética y Aspectos Sociales de la IA</h2>
+                <p class="text-secondary small max-w-2xl mx-auto">
+                    Investigación formal y multidisciplinaria sobre las implicaciones éticas, sociales y regulatorias de los sistemas inteligentes.
+                </p>
+            </div>
+
+            <!-- Ficha Técnica y Metadatos -->
+            <div class="ensayo-paper mx-auto" style="max-width: 980px;">
+                <div class="border-bottom pb-4 mb-4">
+                    <span class="badge bg-primary text-white px-3 py-1 rounded-pill mb-2">Ensayo Académico de Investigación</span>
+                    <h3 class="fw-bold text-dark mb-2" style="line-height: 1.35;">{{ ensayo.metadata.titulo }}</h3>
+                    <p class="text-secondary lead fs-6 mb-3">{{ ensayo.metadata.subtitulo }}</p>
+                    
+                    <div class="row g-2 align-items-center py-2 bg-light rounded-3 px-3 small text-muted border">
+                        <div class="col-md-6">
+                            <strong><i class="fa-solid fa-user-pen text-primary me-1"></i>Autor:</strong> {{ ensayo.metadata.autor }}
+                        </div>
+                        <div class="col-md-6">
+                            <strong><i class="fa-solid fa-building-columns text-primary me-1"></i>Institución:</strong> {{ ensayo.metadata.institucion }}
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa-solid fa-clock text-primary me-1"></i>Lectura:</strong> {{ ensayo.metadata.tiempo_lectura }}
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa-solid fa-file-lines text-primary me-1"></i>Extensión:</strong> {{ ensayo.metadata.palabras_aprox }}
+                        </div>
+                        <div class="col-md-4">
+                            <strong><i class="fa-solid fa-calendar-day text-primary me-1"></i>Fecha:</strong> {{ ensayo.metadata.fecha }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen Ejecutivo (Abstract) -->
+                <div class="p-4 rounded-3 mb-4" style="background-color: #f0fdf4; border-left: 4px solid #16a34a;">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa-solid fa-file-contract text-success me-2 fs-5"></i>
+                        <h6 class="fw-bold text-success-emphasis mb-0">Resumen Ejecutivo (Abstract)</h6>
+                    </div>
+                    <p class="small text-secondary mb-3" style="text-align: justify; line-height: 1.65;">
+                        {{ ensayo.resumen_ejecutivo }}
+                    </p>
+                    <div class="d-flex flex-wrap gap-1 align-items-center">
+                        <strong class="small text-dark me-2">Palabras Clave:</strong>
+                        {% for pk in ensayo.palabras_clave %}
+                        <span class="badge badge-chip">{{ pk }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Citas célebres de reflexión -->
+                <div class="row g-3 mb-4">
+                    {% for f in ensayo.frases_destacadas %}
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border h-100 d-flex flex-column justify-content-between">
+                            <p class="small fst-italic text-secondary mb-2" style="font-size: 0.83rem;">
+                                "{{ f.cita }}"
+                            </p>
+                            <span class="small fw-bold text-dark" style="font-size: 0.78rem;">
+                                &mdash; {{ f.autor }} <span class="text-muted fw-normal">({{ f.obra }})</span>
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Índice de Navegación Rápida -->
+                <div class="bg-light p-3 rounded-3 mb-5 border">
+                    <strong class="text-dark small d-block mb-2"><i class="fa-solid fa-list-ol me-2 text-primary"></i>Índice Temático del Ensayo:</strong>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for sec in ensayo.secciones %}
+                        <a href="#ensayo-{{ sec.id }}" class="btn btn-sm btn-white bg-white border text-secondary rounded-pill small py-1 px-3">
+                            <span class="text-primary fw-bold">{{ sec.numero }}.</span> {{ sec.titulo.split(':')[0] }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Cuerpo Íntegro de Secciones del Ensayo -->
+                {% for sec in ensayo.secciones %}
+                <div class="ensayo-section" id="ensayo-{{ sec.id }}">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-primary text-white rounded-pill me-2 px-2 py-1">{{ sec.numero }}</span>
+                        <h4 class="fw-bold text-dark mb-0">{{ sec.titulo }}</h4>
+                    </div>
+                    <h6 class="text-primary fw-medium small mb-3">{{ sec.subtitulo }}</h6>
+
+                    <div class="text-secondary" style="text-align: justify; line-height: 1.75; font-size: 0.95rem;">
+                        {% for parrafo in sec.contenido %}
+                        <p class="mb-3">
+                            {{ parrafo }}
+                        </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Referencias Bibliográficas -->
+                <div class="pt-3 mt-4 border-top">
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-book me-2 text-primary"></i>Referencias Bibliográficas</h5>
+                    <div class="list-group list-group-flush small">
+                        {% for ref in ensayo.referencias %}
+                        <div class="list-group-item px-0 py-2 border-bottom-0">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-bookmark text-muted me-2 mt-1"></i>
+                                <div>
+                                    <strong class="text-dark">{{ ref.autor }}</strong> ({{ ref.anio }}). 
+                                    <span class="fst-italic">{{ ref.titulo }}</span>. 
+                                    <span class="text-muted">{{ ref.fuente }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Botones de Acción al pie del ensayo -->
+                <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top flex-wrap gap-2">
+                    <a href="#sec-ensayo" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                        <i class="fa-solid fa-arrow-up me-1"></i>Volver al Inicio del Ensayo
+                    </a>
+                    <button onclick="window.print()" class="btn btn-sm btn-primary rounded-pill px-4">
+                        <i class="fa-solid fa-print me-1"></i>Imprimir / Guardar Ensayo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA COMÚN A TODOS LOS APARTADOS -->
+    <footer class="text-center py-4 mt-auto">
+        <div class="container">
+            <div class="d-flex justify-content-center flex-wrap gap-3 mb-2 small">
+                <a href="javascript:void(0)" onclick="mostrarSeccion('glosario')" class="text-decoration-none text-muted">Glosario (glosario.py)</a>
+                <span>&bull;</span>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('timeline')" class="text-decoration-none text-muted">Línea de Tiempo (linea_tiempo.py)</a>
+                <span>&bull;</span>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('clasificacion')" class="text-decoration-none text-muted">Clasificación (clasificacion.py)</a>
+                <span>&bull;</span>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('ml')" class="text-decoration-none text-muted">Machine Learning (machine_learning.py)</a>
+                <span>&bull;</span>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('ensayo')" class="text-decoration-none text-muted">Ensayo Ético (ensayo.py)</a>
+            </div>
+            <p class="fw-semibold mb-1 text-dark">Portal Académico de Inteligencia Artificial &bull; Cesar hessiel arevalo sanchez</p>
+            <p class="small text-muted mb-0">
+                Universidad Tecnológica de Puebla &bull; 
+                Contacto: <a href="mailto:utp0153205@alumno.utpuebla.edu.mx" class="text-decoration-none text-primary">utp0153205@alumno.utpuebla.edu.mx</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script de Control de Navegación y Machine Learning Interactivo -->
+    <script>
+        // Función para cambiar de sección manteniendo un diseño unificado y reactivo
+        function mostrarSeccion(sec) {
+            const secciones = ['glosario', 'timeline', 'clasificacion', 'ml', 'ensayo'];
+            
+            secciones.forEach(s => {
+                const elSec = document.getElementById('sec-' + s);
+                const elBtn = document.getElementById('btn-' + s);
+                if (elSec) elSec.classList.add('d-none');
+                if (elBtn) elBtn.classList.remove('active');
+            });
+
+            const activaSec = document.getElementById('sec-' + sec);
+            const activaBtn = document.getElementById('btn-' + sec);
+
+            if (activaSec) activaSec.classList.remove('d-none');
+            if (activaBtn) activaBtn.classList.add('active');
+
+            // Actualizar URL sin recargar la página para facilitar compartir el link
+            const url = new URL(window.location);
+            url.searchParams.set('sec', sec);
+            window.history.replaceState({}, '', url);
+
+            // Desplazar suavemente hacia la vista principal
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Cargar ejemplo en el demostrador de Machine Learning
+        function cargarEjemploML(texto) {
+            const input = document.getElementById('ml-input-text');
+            if (input) {
+                input.value = texto;
+                ejecutarPrediccionML();
+            }
+        }
+
+        // Ejecutar inferencia mediante llamada fetch al API de Flask
+        async function ejecutarPrediccionML() {
+            const input = document.getElementById('ml-input-text');
+            const texto = input.value.trim();
+
+            if (!texto) {
+                alert('Por favor introduce un texto para analizar con el modelo.');
+                return;
+            }
+
+            const loading = document.getElementById('ml-loading');
+            const resultCard = document.getElementById('ml-result-card');
+            const btn = document.getElementById('btn-predecir-ml');
+
+            loading.classList.remove('d-none');
+            resultCard.classList.add('d-none');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/ml/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ texto: texto })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en el servidor de inferencia');
+                }
+
+                const data = await response.json();
+
+                // Actualizar interfaz con los resultados de la inferencia
+                const badgeStatus = document.getElementById('ml-badge-status');
+                const resultLabel = document.getElementById('ml-result-label');
+                const resultDesc = document.getElementById('ml-result-desc');
+                const valSpam = document.getElementById('ml-val-spam');
+                const valHam = document.getElementById('ml-val-ham');
+                const barSpam = document.getElementById('ml-bar-spam');
+                const barHam = document.getElementById('ml-bar-ham');
+                const tokensContainer = document.getElementById('ml-tokens-container');
+
+                if (data.es_spam) {
+                    badgeStatus.className = 'badge bg-danger mb-2';
+                    badgeStatus.textContent = 'Alerta: Contenido Sospechoso';
+                    resultLabel.className = 'fw-bold text-danger mb-2';
+                    resultLabel.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + data.etiqueta;
+                } else {
+                    badgeStatus.className = 'badge bg-success mb-2';
+                    badgeStatus.textContent = 'Mensaje Confiable';
+                    resultLabel.className = 'fw-bold text-success mb-2';
+                    resultLabel.innerHTML = '<i class="fa-solid fa-shield-check me-2"></i>' + data.etiqueta;
+                }
+
+                resultDesc.textContent = data.explicacion;
+                valSpam.textContent = data.probabilidad_spam;
+                valHam.textContent = data.probabilidad_ham;
+                barSpam.style.width = data.probabilidad_spam + '%';
+                barHam.style.width = data.probabilidad_ham + '%';
+
+                // Mostrar tokens analizados
+                tokensContainer.innerHTML = '';
+                if (data.tokens_analizados && data.tokens_analizados.length > 0) {
+                    data.tokens_analizados.forEach(t => {
+                        const esPalabraSpam = data.palabras_clave_spam && data.palabras_clave_spam.includes(t);
+                        const span = document.createElement('span');
+                        span.className = esPalabraSpam ? 'badge bg-danger-subtle text-danger border border-danger-subtle' : 'badge bg-light text-secondary border';
+                        span.textContent = t;
+                        tokensContainer.appendChild(span);
+                    });
+                } else {
+                    tokensContainer.innerHTML = '<span class="text-muted small">Sin palabras significativas detectadas</span>';
+                }
+
+            } catch (err) {
+                alert('No se pudo procesar la predicción: ' + err.message);
+            } finally {
+                loading.classList.add('d-none');
+                resultCard.classList.remove('d-none');
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
