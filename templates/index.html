@@ -453,6 +453,59 @@
 
         .alg-poster a { color: var(--primary-dark); }
 
+        /* ============================================================ */
+        /* ENSAYO — formato documento A4 estilo reporte (módulo ensayo.py) */
+        /* ============================================================ */
+        .ensayo-doc {
+            font-family: "Times New Roman", Times, serif;
+            color: #111;
+            background: #525659;
+            padding: 10mm 3mm;
+            border-radius: 8px;
+        }
+        .ensayo-doc .hoja {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 8mm auto;
+            background: #ffffff;
+            box-shadow: 0 1mm 4mm rgba(0, 0, 0, .5);
+            padding: 16mm 16mm 12mm;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always;
+        }
+        .ensayo-doc .hoja:last-child { page-break-after: auto; }
+        .ensayo-doc .pie { margin-top: auto; padding-top: 8mm; text-align: center; font-size: 10pt; color: #444; }
+        .ensayo-doc .titulo-ensayo { font-size: 20pt; text-align: center; color: #14487a; margin: 6mm 0 4mm; font-weight: bold; }
+        .ensayo-doc .doc-h2 { font-size: 14pt; color: #14487a; border-bottom: 1.5px solid #14487a; padding-bottom: 1.5mm; margin: 6mm 0 3mm; text-align: left; font-weight: bold; }
+        .ensayo-doc .doc-h3 { font-size: 12pt; color: #14487a; margin: 4mm 0 2mm; text-align: left; font-weight: bold; }
+        .ensayo-doc .hoja p { text-align: justify; font-size: 11.5pt; line-height: 1.55; margin: 0 0 4mm; }
+        .ensayo-doc .portada { text-align: center; }
+        .ensayo-doc .portada p { text-align: center; font-size: 12.5pt; margin: 2mm 0; }
+        .ensayo-doc .portada .cab img { height: 26mm; width: auto; display: block; margin: 0 auto; }
+        .ensayo-doc .portada .uni { font-size: 15pt; font-weight: bold; text-align: center; margin: 4mm 0 12mm; }
+        .ensayo-doc .portada .grande { font-size: 14pt; font-weight: bold; margin: 8mm 0 6mm; }
+        .ensayo-doc .portada .sub { font-size: 13pt; margin: 3mm 0; }
+        .ensayo-doc ul.indice { list-style: none; padding-left: 0; font-size: 12pt; margin-top: 4mm; }
+        .ensayo-doc ul.indice li { margin: 2.6mm 0; text-align: left; overflow: auto; }
+        .ensayo-doc ul.indice .pts { float: right; color: #14487a; font-weight: bold; }
+        .ensayo-doc ul.indice a { color: #111; text-decoration: none; }
+        .ensayo-doc ul.indice a:hover { color: #14487a; text-decoration: underline; }
+        .ensayo-doc .ref { padding-left: 12mm; text-indent: -12mm; margin: 3mm 0; font-size: 11pt; text-align: left; }
+        .ensayo-doc .nota { font-size: 10.5pt; color: #555; margin-top: 8mm; text-align: left; }
+        .ensayo-doc .cita-doc { font-style: italic; }
+        .ensayo-doc .cita-autor { font-style: normal; font-size: 10.5pt; color: #444; }
+        @media (max-width: 860px) {
+            .ensayo-doc { padding: 4mm 2mm; }
+            .ensayo-doc .hoja { width: 100%; min-height: auto; padding: 8mm 5mm; }
+        }
+        @media print {
+            body { background: #ffffff; }
+            .navbar-custom, footer, .no-print { display: none !important; }
+            .ensayo-doc { background: #ffffff; padding: 0; }
+            .ensayo-doc .hoja { width: auto; min-height: 235mm; margin: 0; box-shadow: none; padding: 4mm 2mm; }
+        }
+
         footer {
             background-color: #ffffff;
             border-top: 1px solid var(--slate-200);
@@ -1400,138 +1453,95 @@
 
     <!-- ======================================================================= -->
     <!-- APARTADO 5: ENSAYO DE ÉTICA Y SOCIEDAD (Módulo ensayo.py)               -->
+    <!-- Formato documento A4: portada, índice, resumen, secciones y referencias -->
     <!-- ======================================================================= -->
     <section id="sec-ensayo" class="py-4 {% if seccion_activa != 'ensayo' %}d-none{% endif %}">
         <div class="container">
-            <!-- Encabezado del Ensayo -->
-            <div class="text-center mb-4">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: ensayo.py
+            <!-- Barra de herramientas (no se imprime) -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 no-print">
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill">
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: ensayo.py &bull; Formato documento A4
                 </span>
-                <h2 class="fw-bold text-dark mb-1">Ensayo Académico: Ética y Aspectos Sociales de la IA</h2>
-                <p class="text-secondary small max-w-2xl mx-auto">
-                    Investigación formal y multidisciplinaria sobre las implicaciones éticas, sociales y regulatorias de los sistemas inteligentes.
-                </p>
+                <button onclick="window.print()" class="btn btn-sm btn-primary rounded-pill px-4">
+                    <i class="fa-solid fa-print me-1"></i>Imprimir / Guardar PDF
+                </button>
             </div>
 
-            <!-- Ficha Técnica y Metadatos -->
-            <div class="ensayo-paper mx-auto" style="max-width: 980px;">
-                <div class="border-bottom pb-4 mb-4">
-                    <span class="badge bg-primary text-white px-3 py-1 rounded-pill mb-2">Ensayo Académico de Investigación</span>
-                    <h3 class="fw-bold text-dark mb-2" style="line-height: 1.35;">{{ ensayo.metadata.titulo }}</h3>
-                    <p class="text-secondary lead fs-6 mb-3">{{ ensayo.metadata.subtitulo }}</p>
-                    
-                    <div class="row g-2 align-items-center py-2 bg-light rounded-3 px-3 small text-muted border">
-                        <div class="col-md-6">
-                            <strong><i class="fa-solid fa-user-pen text-primary me-1"></i>Autor:</strong> {{ ensayo.metadata.autor }}
-                        </div>
-                        <div class="col-md-6">
-                            <strong><i class="fa-solid fa-building-columns text-primary me-1"></i>Institución:</strong> {{ ensayo.metadata.institucion }}
-                        </div>
-                        <div class="col-md-4">
-                            <strong><i class="fa-solid fa-clock text-primary me-1"></i>Lectura:</strong> {{ ensayo.metadata.tiempo_lectura }}
-                        </div>
-                        <div class="col-md-4">
-                            <strong><i class="fa-solid fa-file-lines text-primary me-1"></i>Extensión:</strong> {{ ensayo.metadata.palabras_aprox }}
-                        </div>
-                        <div class="col-md-4">
-                            <strong><i class="fa-solid fa-calendar-day text-primary me-1"></i>Fecha:</strong> {{ ensayo.metadata.fecha }}
-                        </div>
+            {% set total_secciones = (ensayo.secciones|length) %}
+            <div class="ensayo-doc">
+
+                <!-- ============ PÁGINA 1: PORTADA ============ -->
+                <div class="hoja portada">
+                    <div class="cab">
+                        <img src="/static/logo_utp.jpg" alt="Logo Universidad Tecnológica de Puebla">
                     </div>
+                    <p class="uni">UNIVERSIDAD TECNOLÓGICA DE PUEBLA</p>
+                    <p class="sub">LICENCIATURA EN INGENIERÍA EN TECNOLOGÍAS DE LA INFORMACIÓN E INNOVACIÓN DIGITAL</p>
+                    <p class="grande">{{ ensayo.metadata.titulo }}</p>
+                    <p class="sub">{{ ensayo.metadata.subtitulo }}</p>
+                    <p class="sub">ÁREA: {{ ensayo.metadata.area|upper }}</p>
+                    <p class="sub">ALUMNO:<br>{{ ensayo.metadata.autor|upper }}</p>
+                    <p class="sub">NÚMERO DE CONTROL: UTP0153205</p>
+                    <p class="sub">SÉPTIMO "C"</p>
+                    <p class="sub">{{ ensayo.metadata.fecha }}</p>
+                    <div class="pie">Página 1</div>
                 </div>
 
-                <!-- Resumen Ejecutivo (Abstract) -->
-                <div class="p-4 rounded-3 mb-4" style="background-color: #f0fdf4; border-left: 4px solid #16a34a;">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fa-solid fa-file-contract text-success me-2 fs-5"></i>
-                        <h6 class="fw-bold text-success-emphasis mb-0">Resumen Ejecutivo (Abstract)</h6>
-                    </div>
-                    <p class="small text-secondary mb-3" style="text-align: justify; line-height: 1.65;">
-                        {{ ensayo.resumen_ejecutivo }}
-                    </p>
-                    <div class="d-flex flex-wrap gap-1 align-items-center">
-                        <strong class="small text-dark me-2">Palabras Clave:</strong>
-                        {% for pk in ensayo.palabras_clave %}
-                        <span class="badge badge-chip">{{ pk }}</span>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Citas célebres de reflexión -->
-                <div class="row g-3 mb-4">
-                    {% for f in ensayo.frases_destacadas %}
-                    <div class="col-md-4">
-                        <div class="p-3 bg-light rounded-3 border h-100 d-flex flex-column justify-content-between">
-                            <p class="small fst-italic text-secondary mb-2" style="font-size: 0.83rem;">
-                                "{{ f.cita }}"
-                            </p>
-                            <span class="small fw-bold text-dark" style="font-size: 0.78rem;">
-                                &mdash; {{ f.autor }} <span class="text-muted fw-normal">({{ f.obra }})</span>
-                            </span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                <!-- Índice de Navegación Rápida -->
-                <div class="bg-light p-3 rounded-3 mb-5 border">
-                    <strong class="text-dark small d-block mb-2"><i class="fa-solid fa-list-ol me-2 text-primary"></i>Índice Temático del Ensayo:</strong>
-                    <div class="d-flex flex-wrap gap-2">
+                <!-- ============ PÁGINA 2: ÍNDICE ============ -->
+                <div class="hoja">
+                    <h1 class="titulo-ensayo">Índice</h1>
+                    <ul class="indice">
+                        <li><a href="#ensayo-resumen">Resumen ejecutivo (Abstract)</a> <span class="pts">3</span></li>
                         {% for sec in ensayo.secciones %}
-                        <a href="#ensayo-{{ sec.id }}" class="btn btn-sm btn-white bg-white border text-secondary rounded-pill small py-1 px-3">
-                            <span class="text-primary fw-bold">{{ sec.numero }}.</span> {{ sec.titulo.split(':')[0] }}
-                        </a>
+                        <li><a href="#ensayo-{{ sec.id }}">{{ sec.numero }}. {{ sec.titulo }}</a> <span class="pts">{{ 3 + loop.index }}</span></li>
                         {% endfor %}
-                    </div>
+                        <li><a href="#ensayo-referencias">Referencias bibliográficas</a> <span class="pts">{{ 4 + total_secciones }}</span></li>
+                    </ul>
+                    <p class="nota">
+                        Tiempo de lectura estimado: {{ ensayo.metadata.tiempo_lectura }} &bull;
+                        Extensión: {{ ensayo.metadata.palabras_aprox }} &bull;
+                        Fecha: {{ ensayo.metadata.fecha }}
+                    </p>
+                    <div class="pie">Página 2</div>
                 </div>
 
-                <!-- Cuerpo Íntegro de Secciones del Ensayo -->
-                {% for sec in ensayo.secciones %}
-                <div class="ensayo-section" id="ensayo-{{ sec.id }}">
-                    <div class="d-flex align-items-center mb-2">
-                        <span class="badge bg-primary text-white rounded-pill me-2 px-2 py-1">{{ sec.numero }}</span>
-                        <h4 class="fw-bold text-dark mb-0">{{ sec.titulo }}</h4>
-                    </div>
-                    <h6 class="text-primary fw-medium small mb-3">{{ sec.subtitulo }}</h6>
+                <!-- ============ PÁGINA 3: RESUMEN Y CITAS ============ -->
+                <div class="hoja" id="ensayo-resumen">
+                    <h2 class="doc-h2">Resumen ejecutivo (Abstract)</h2>
+                    <p>{{ ensayo.resumen_ejecutivo }}</p>
+                    <p><strong>Palabras clave:</strong>
+                        {% for pk in ensayo.palabras_clave %}{{ pk }}{% if not loop.last %}, {% endif %}{% endfor %}.
+                    </p>
+                    <h3 class="doc-h3">Citas para la reflexión</h3>
+                    {% for f in ensayo.frases_destacadas %}
+                    <p class="cita-doc">&laquo;{{ f.cita }}&raquo;<br>
+                        <span class="cita-autor">&mdash; {{ f.autor }} ({{ f.obra }})</span>
+                    </p>
+                    {% endfor %}
+                    <div class="pie">Página 3</div>
+                </div>
 
-                    <div class="text-secondary" style="text-align: justify; line-height: 1.75; font-size: 0.95rem;">
-                        {% for parrafo in sec.contenido %}
-                        <p class="mb-3">
-                            {{ parrafo }}
-                        </p>
-                        {% endfor %}
-                    </div>
+                <!-- ============ PÁGINAS 4+: UNA POR SECCIÓN ============ -->
+                {% for sec in ensayo.secciones %}
+                <div class="hoja" id="ensayo-{{ sec.id }}">
+                    <h2 class="doc-h2">{{ sec.numero }}. {{ sec.titulo }}</h2>
+                    <h3 class="doc-h3">{{ sec.subtitulo }}</h3>
+                    {% for parrafo in sec.contenido %}
+                    <p>{{ parrafo }}</p>
+                    {% endfor %}
+                    <div class="pie">Página {{ 3 + loop.index }}</div>
                 </div>
                 {% endfor %}
 
-                <!-- Referencias Bibliográficas -->
-                <div class="pt-3 mt-4 border-top">
-                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-book me-2 text-primary"></i>Referencias Bibliográficas</h5>
-                    <div class="list-group list-group-flush small">
-                        {% for ref in ensayo.referencias %}
-                        <div class="list-group-item px-0 py-2 border-bottom-0">
-                            <div class="d-flex align-items-start">
-                                <i class="fa-solid fa-bookmark text-muted me-2 mt-1"></i>
-                                <div>
-                                    <strong class="text-dark">{{ ref.autor }}</strong> ({{ ref.anio }}). 
-                                    <span class="fst-italic">{{ ref.titulo }}</span>. 
-                                    <span class="text-muted">{{ ref.fuente }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                <!-- ============ ÚLTIMA PÁGINA: REFERENCIAS ============ -->
+                <div class="hoja" id="ensayo-referencias">
+                    <h2 class="doc-h2">Referencias bibliográficas</h2>
+                    {% for ref in ensayo.referencias %}
+                    <p class="ref"><strong>{{ ref.autor }}</strong> ({{ ref.anio }}). <em>{{ ref.titulo }}</em>. {{ ref.fuente }}</p>
+                    {% endfor %}
+                    <div class="pie">Página {{ 4 + total_secciones }}</div>
                 </div>
 
-                <!-- Botones de Acción al pie del ensayo -->
-                <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top flex-wrap gap-2">
-                    <a href="#sec-ensayo" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-                        <i class="fa-solid fa-arrow-up me-1"></i>Volver al Inicio del Ensayo
-                    </a>
-                    <button onclick="window.print()" class="btn btn-sm btn-primary rounded-pill px-4">
-                        <i class="fa-solid fa-print me-1"></i>Imprimir / Guardar Ensayo
-                    </button>
-                </div>
             </div>
         </div>
     </section>
