@@ -177,9 +177,9 @@
 
   {# ============ PAGINACIÓN CALCULADA ============
      Máximo 5 párrafos por hoja: la sección 06 (9 párrafos) ocupa dos páginas
-     (9 y 10). Los números del índice y de los pies de página se calculan aquí
+     (8 y 9). Los números del índice y de los pies de página se calculan aquí
      para que coincidan SIEMPRE con las páginas físicas del PDF. #}
-  {% set PAG = namespace(actual=4, entradas=[], trozos=[]) %}
+  {% set PAG = namespace(actual=3, entradas=[], trozos=[]) %}
   {% for sec in ensayo.secciones %}
     {% set t = namespace(lista=[]) %}
     {% for i in range(0, sec.contenido|length, 5) %}
@@ -212,37 +212,15 @@
   <div class="hoja">
     <h1 class="titulo">Índice</h1>
     <ul class="indice">
-      <li><span style="color:#14487a; font-weight:bold;">Resumen ejecutivo (Abstract)</span> <span class="pts">3</span></li>
       {% for sec in ensayo.secciones %}
       <li>{{ sec.numero }}. {{ sec.titulo }} <span class="pts">{{ PAG.entradas[loop.index0] }}</span></li>
       {% endfor %}
       <li>Referencias bibliográficas <span class="pts">{{ pagina_refs }}</span></li>
     </ul>
-    <p class="nota">
-      Tiempo de lectura estimado: {{ ensayo.metadata.tiempo_lectura }} &bull;
-      Extensión: {{ ensayo.metadata.palabras_aprox }} &bull;
-      Fecha: 28 de septiembre de 2026
-    </p>
     <div class="pie">Página 2</div>
   </div>
 
-  <!-- ============ PÁGINA 3: RESUMEN Y CITAS ============ -->
-  <div class="hoja">
-    <h2>Resumen ejecutivo (Abstract)</h2>
-    <p>{{ ensayo.resumen_ejecutivo }}</p>
-    <p><strong>Palabras clave:</strong>
-      {% for pk in ensayo.palabras_clave %}{{ pk }}{% if not loop.last %}, {% endif %}{% endfor %}.
-    </p>
-    <h3>Citas para la reflexión</h3>
-    {% for f in ensayo.frases_destacadas %}
-    <p class="cita-doc">&laquo;{{ f.cita }}&raquo;<br>
-      <span class="cita-autor">&mdash; {{ f.autor }} ({{ f.obra }})</span>
-    </p>
-    {% endfor %}
-    <div class="pie">Página 3</div>
-  </div>
-
-  <!-- ============ PÁGINAS 4+: SECCIONES (máx. 5 párrafos por hoja) ============ -->
+  <!-- ============ PÁGINAS 3+: SECCIONES (máx. 5 párrafos por hoja) ============ -->
   {% for sec in ensayo.secciones %}
   {% set idx = loop.index0 %}
   {% for trozo in PAG.trozos[idx] %}
