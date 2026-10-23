@@ -368,6 +368,150 @@ CLASIFICACION_BUSQUEDA = [
     }
 ]
 
+# ¿Qué es cada algoritmo? Fichas de definición (inciso d)
+FICHAS_ALGORITMOS = [
+    {
+        "corto": "BFS",
+        "largo": "Búsqueda en Anchura (Breadth-First)",
+        "familia": "Ciega",
+        "color": "#0284c7",
+        "que_es": "Explora el grafo por niveles, como una mancha de agua: primero los vecinos del inicio, luego los vecinos de los vecinos. Usa una cola FIFO y garantiza el camino con menos pasos cuando todos cuestan lo mismo."
+    },
+    {
+        "corto": "DFS",
+        "largo": "Búsqueda en Profundidad (Depth-First)",
+        "familia": "Ciega",
+        "color": "#0284c7",
+        "que_es": "Se hunde por una sola rama hasta no poder avanzar y entonces retrocede. Usa una pila LIFO: gasta memoria mínima, pero puede meterse en ramas infinitas y devolver caminos enormes."
+    },
+    {
+        "corto": "UCS",
+        "largo": "Costo Uniforme (Dijkstra)",
+        "familia": "Ciega",
+        "color": "#0284c7",
+        "que_es": "Expande siempre el camino más barato acumulado hasta ahora, g(n), sin importar cuántos pasos lleve. Es el Dijkstra de la IA: óptimo cuando las acciones cuestan distinto."
+    },
+    {
+        "corto": "DLS",
+        "largo": "Profundidad Limitada",
+        "familia": "Ciega",
+        "color": "#0284c7",
+        "que_es": "Un DFS con tope: no puede bajar más allá de una profundidad máxima. Se salva de los caminos infinitos, pero si la meta está más abajo del límite, jamás la encuentra."
+    },
+    {
+        "corto": "IDS",
+        "largo": "Profundidad Iterativa",
+        "familia": "Ciega",
+        "color": "#0284c7",
+        "que_es": "Repite DLS con límites crecientes (0, 1, 2...) hasta dar con la meta. Parece desperdiciar trabajo, pero combina lo mejor de BFS y DFS: óptimo y con memoria lineal."
+    },
+    {
+        "corto": "Greedy",
+        "largo": "Greedy Best-First (Búsqueda Ávida)",
+        "familia": "Heurística",
+        "color": "#7c3aed",
+        "que_es": "Expande siempre el nodo que parece más cerca de la meta según h(n), ignorando lo que ya costó llegar hasta ahí. Muy rápido, pero se deja engañar y no garantiza el mejor camino."
+    },
+    {
+        "corto": "A*",
+        "largo": "A-Estrella",
+        "familia": "Heurística",
+        "color": "#7c3aed",
+        "que_es": "El estándar de la búsqueda con heurística: expande el nodo con menor f(n) = g(n) + h(n), costo ya caminado más estimación restante. Con una h admisible devuelve siempre el camino más barato."
+    },
+    {
+        "corto": "IDA*",
+        "largo": "A* Iterativo en Profundidad",
+        "familia": "Heurística",
+        "color": "#7c3aed",
+        "que_es": "A* sin lista de espera: hace búsquedas en profundidad con un presupuesto de costo cada vez mayor. Memoria lineal como DFS y óptimo como A*."
+    },
+    {
+        "corto": "SMA*",
+        "largo": "A* con Memoria Simplificada",
+        "familia": "Heurística",
+        "color": "#7c3aed",
+        "que_es": "A* con presupuesto de memoria: cuando la frontera se llena, olvida el peor nodo y lo reaprende si vuelve a hacer falta. Óptimo si la solución cabe en la memoria disponible."
+    },
+    {
+        "corto": "Beam",
+        "largo": "Búsqueda en Haz (Beam Search)",
+        "familia": "Heurística",
+        "color": "#7c3aed",
+        "que_es": "BFS por niveles que solo conserva los k nodos más prometedores de cada nivel (el 'haz' de luz). Barato y veloz, pero puede descartar el camino correcto."
+    },
+    {
+        "corto": "Hill Climbing",
+        "largo": "Ascenso de Colinas",
+        "familia": "Local",
+        "color": "#d97706",
+        "que_es": "Búsqueda local: del estado actual solo se mueve al vecino que mejora la función objetivo, y se detiene cuando ningún vecino es mejor. Simple y veloz, pero se atasca en máximos locales."
+    },
+    {
+        "corto": "Recocido Simulado",
+        "largo": "Simulated Annealing",
+        "familia": "Local",
+        "color": "#d97706",
+        "que_es": "Hill Climbing que a veces acepta empeorar, con una probabilidad que baja con el tiempo (se 'enfría'), imitando el temple del metal. Así logra escapar de los máximos locales."
+    },
+    {
+        "corto": "Búsqueda Tabú",
+        "largo": "Tabu Search",
+        "familia": "Local",
+        "color": "#d97706",
+        "que_es": "Búsqueda local con memoria: lleva una lista tabú de movimientos recientes prohibidos, evitando dar vueltas en círculo y obligándose a explorar zonas nuevas del espacio."
+    },
+    {
+        "corto": "Genéticos",
+        "largo": "Algoritmos Genéticos",
+        "familia": "Local",
+        "color": "#d97706",
+        "que_es": "Mantiene una población de soluciones candidatas que se cruzan y mutan; las más aptas sobreviven y se reproducen. Evolución simulada, ideal para espacios gigantescos."
+    },
+    {
+        "corto": "Minimax",
+        "largo": "Minimización del peor caso",
+        "familia": "Adversarial",
+        "color": "#e11d48",
+        "que_es": "Para juegos de dos jugadores: yo maximizo mi ganancia y asumo que el rival minimiza la mía. Recorre el árbol de jugadas y elige la rama con el mejor peor-caso posible."
+    },
+    {
+        "corto": "Poda Alfa-Beta",
+        "largo": "Alpha-Beta Pruning",
+        "familia": "Adversarial",
+        "color": "#e11d48",
+        "que_es": "Minimax inteligente: descarta las ramas que ya no pueden cambiar la decisión final. Devuelve la misma jugada explorando muchísimo menos: hasta el doble de profundidad útil."
+    },
+    {
+        "corto": "MCTS",
+        "largo": "Monte Carlo Tree Search",
+        "familia": "Adversarial",
+        "color": "#e11d48",
+        "que_es": "Simula miles de finalizaciones aleatorias desde cada jugada candidata y elige las que más victorias producen. No necesita evaluar el árbol completo; es la base de AlphaGo."
+    },
+    {
+        "corto": "Backtracking",
+        "largo": "Vuelta Atrás",
+        "familia": "CSP",
+        "color": "#059669",
+        "que_es": "Asigna valores a las variables una por una y retrocede en cuanto una regla se rompe. El método clásico de satisfacción de restricciones: sudokus, horarios, colorear mapas."
+    },
+    {
+        "corto": "Forward Checking",
+        "largo": "Comprobación Adelantada",
+        "familia": "CSP",
+        "color": "#059669",
+        "que_es": "Acompaña al backtracking: al asignar una variable, borra al instante los valores imposibles de sus vecinas, detectando los conflictos mucho antes de expandir."
+    },
+    {
+        "corto": "AC-3",
+        "largo": "Consistencia de Arcos",
+        "familia": "CSP",
+        "color": "#059669",
+        "que_es": "Algoritmo de propagación de restricciones: revisa pares de variables y elimina los valores sin soporte en la otra, repitiendo hasta que todo el grafo queda consistente."
+    }
+]
+
 # Guía rápida de selección (¿cuál usar?)
 GUIA_SELECCION = [
     {
@@ -504,7 +648,8 @@ def obtener_info_algoritmos():
         "elementos": ELEMENTOS,
         "ejemplo": EJEMPLO,
         "intro_clasificacion": INTRO_CLASIFICACION,
-        "clasificacion": CLASIFICACION_BUSQUEDA
+        "clasificacion": CLASIFICACION_BUSQUEDA,
+        "fichas": FICHAS_ALGORITMOS
     }
 
 
