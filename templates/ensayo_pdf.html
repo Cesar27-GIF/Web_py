@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ensayo: Ética y Aspectos Sociales de la Inteligencia Artificial | UTP</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11.5pt;
+      color: #111;
+      margin: 0;
+      background: #525659;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    .hoja {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 8mm auto;
+      background: #fff;
+      box-shadow: 0 1mm 4mm rgba(0, 0, 0, .5);
+      padding: 16mm 16mm 12mm;
+      display: flex;
+      flex-direction: column;
+      page-break-after: always;
+    }
+
+    .hoja:last-child {
+      page-break-after: auto;
+    }
+
+    .pie {
+      margin-top: auto;
+      padding-top: 8mm;
+      text-align: center;
+      font-size: 10pt;
+      color: #444;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .hoja {
+        width: auto;
+        min-height: 235mm;
+        margin: 0;
+        box-shadow: none;
+        padding: 4mm 2mm;
+      }
+    }
+
+    h1.titulo {
+      font-size: 20pt;
+      text-align: center;
+      color: #14487a;
+      margin: 6mm 0 4mm;
+    }
+
+    h2 {
+      font-size: 14pt;
+      color: #14487a;
+      border-bottom: 1.5px solid #14487a;
+      padding-bottom: 1.5mm;
+      margin: 6mm 0 3mm;
+      text-align: left;
+    }
+
+    h3 {
+      font-size: 12pt;
+      color: #14487a;
+      margin: 4mm 0 2mm;
+      text-align: left;
+    }
+
+    .portada {
+      text-align: center;
+    }
+
+    .portada p {
+      text-align: center;
+      font-size: 12.5pt;
+      margin: 2mm 0;
+    }
+
+    .portada .cab {
+      margin-bottom: 4mm;
+    }
+
+    .portada .cab img {
+      height: 26mm;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .portada .uni {
+      font-size: 15pt;
+      font-weight: bold;
+      text-align: center;
+      margin: 4mm 0 12mm;
+    }
+
+    .portada .grande {
+      font-size: 14pt;
+      font-weight: bold;
+      margin: 8mm 0 6mm;
+    }
+
+    .portada .sub {
+      font-size: 13pt;
+      margin: 3mm 0;
+    }
+
+    ul.indice {
+      list-style: none;
+      padding-left: 0;
+      font-size: 12pt;
+    }
+
+    ul.indice li {
+      margin: 2.2mm 0;
+      text-align: left;
+    }
+
+    ul.indice .pts {
+      float: right;
+      color: #14487a;
+      font-weight: bold;
+    }
+
+    ul.indice a {
+      color: #111;
+      text-decoration: none;
+    }
+
+    .ref {
+      padding-left: 12mm;
+      text-indent: -12mm;
+      margin: 2.5mm 0;
+      font-size: 11pt;
+      text-align: left;
+    }
+
+    .nota {
+      font-size: 10.5pt;
+      color: #555;
+    }
+
+    .cita-doc {
+      font-style: italic;
+    }
+
+    .cita-autor {
+      font-style: normal;
+      font-size: 10.5pt;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ PÁGINA 1: PORTADA ============ -->
+  <div class="hoja portada">
+    <div class="cab">
+      <img src="/static/logo_utp.jpg" alt="Logo Universidad Tecnológica de Puebla">
+    </div>
+    <p class="uni">UNIVERSIDAD TECNOLÓGICA DE PUEBLA</p>
+    <p class="sub">LICENCIATURA EN INGENIERÍA EN TECNOLOGÍAS DE LA INFORMACIÓN E INNOVACIÓN DIGITAL</p>
+    <p class="grande">Ensayo sobre Ética y aspectos sociales de la Inteligencia Artificial</p>
+    <p class="sub">FUNDAMENTOS DE INTELIGENCIA ARTIFICIAL</p>
+    <p class="sub">DOCENTE: MATHER XOCHITL MENDOZA PISCIL</p>
+    <p class="sub">ALUMNO:<br>{{ ensayo.metadata.autor|upper }}</p>
+    <p class="sub">MATRÍCULA: UTP0153205</p>
+    <p class="sub">7 C</p>
+    <p class="sub">28 de septiembre de 2026</p>
+    <div class="pie">Página 1</div>
+  </div>
+
+  <!-- ============ PÁGINA 2: ÍNDICE ============ -->
+  <div class="hoja">
+    <h1 class="titulo">Índice</h1>
+    <ul class="indice">
+      <li><span style="color:#14487a; font-weight:bold;">Resumen ejecutivo (Abstract)</span> <span class="pts">3</span></li>
+      {% for sec in ensayo.secciones %}
+      <li>{{ sec.numero }}. {{ sec.titulo }} <span class="pts">{{ 3 + loop.index }}</span></li>
+      {% endfor %}
+      <li>Referencias bibliográficas <span class="pts">{{ 4 + (ensayo.secciones|length) }}</span></li>
+    </ul>
+    <p class="nota">
+      Tiempo de lectura estimado: {{ ensayo.metadata.tiempo_lectura }} &bull;
+      Extensión: {{ ensayo.metadata.palabras_aprox }} &bull;
+      Fecha: 28 de septiembre de 2026
+    </p>
+    <div class="pie">Página 2</div>
+  </div>
+
+  <!-- ============ PÁGINA 3: RESUMEN Y CITAS ============ -->
+  <div class="hoja">
+    <h2>Resumen ejecutivo (Abstract)</h2>
+    <p>{{ ensayo.resumen_ejecutivo }}</p>
+    <p><strong>Palabras clave:</strong>
+      {% for pk in ensayo.palabras_clave %}{{ pk }}{% if not loop.last %}, {% endif %}{% endfor %}.
+    </p>
+    <h3>Citas para la reflexión</h3>
+    {% for f in ensayo.frases_destacadas %}
+    <p class="cita-doc">&laquo;{{ f.cita }}&raquo;<br>
+      <span class="cita-autor">&mdash; {{ f.autor }} ({{ f.obra }})</span>
+    </p>
+    {% endfor %}
+    <div class="pie">Página 3</div>
+  </div>
+
+  <!-- ============ PÁGINAS 4+: UNA POR SECCIÓN ============ -->
+  {% for sec in ensayo.secciones %}
+  <div class="hoja">
+    <h2>{{ sec.numero }}. {{ sec.titulo }}</h2>
+    <h3>{{ sec.subtitulo }}</h3>
+    {% for parrafo in sec.contenido %}
+    <p>{{ parrafo }}</p>
+    {% endfor %}
+    <div class="pie">Página {{ 3 + loop.index }}</div>
+  </div>
+  {% endfor %}
+
+  <!-- ============ ÚLTIMA PÁGINA: REFERENCIAS ============ -->
+  <div class="hoja">
+    <h2>Referencias bibliográficas</h2>
+    {% for ref in ensayo.referencias %}
+    <p class="ref"><strong>{{ ref.autor }}</strong> ({{ ref.anio }}). <em>{{ ref.titulo }}</em>. {{ ref.fuente }}</p>
+    {% endfor %}
+    <div class="pie">Página {{ 4 + (ensayo.secciones|length) }}</div>
+  </div>
+
+</body>
+
+</html>

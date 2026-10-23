@@ -454,56 +454,22 @@
         .alg-poster a { color: var(--primary-dark); }
 
         /* ============================================================ */
-        /* ENSAYO — formato documento A4 estilo reporte (módulo ensayo.py) */
+        /* ENSAYO — visor de PDF (módulo ensayo.py)                      */
+        /* El documento vive en templates/ensayo_pdf.html; el PDF        */
+        /* generado se sirve desde /static/Ensayo_Etica_IA.pdf           */
         /* ============================================================ */
-        .ensayo-doc {
-            font-family: "Times New Roman", Times, serif;
-            color: #111;
+        .ensayo-pdf-frame {
+            width: 100%;
+            height: 88vh;
+            min-height: 620px;
+            border: 1px solid var(--slate-200);
+            border-radius: 14px;
             background: #525659;
-            padding: 10mm 3mm;
-            border-radius: 8px;
-        }
-        .ensayo-doc .hoja {
-            width: 210mm;
-            min-height: 297mm;
-            margin: 8mm auto;
-            background: #ffffff;
-            box-shadow: 0 1mm 4mm rgba(0, 0, 0, .5);
-            padding: 16mm 16mm 12mm;
-            display: flex;
-            flex-direction: column;
-            page-break-after: always;
-        }
-        .ensayo-doc .hoja:last-child { page-break-after: auto; }
-        .ensayo-doc .pie { margin-top: auto; padding-top: 8mm; text-align: center; font-size: 10pt; color: #444; }
-        .ensayo-doc .titulo-ensayo { font-size: 20pt; text-align: center; color: #14487a; margin: 6mm 0 4mm; font-weight: bold; }
-        .ensayo-doc .doc-h2 { font-size: 14pt; color: #14487a; border-bottom: 1.5px solid #14487a; padding-bottom: 1.5mm; margin: 6mm 0 3mm; text-align: left; font-weight: bold; }
-        .ensayo-doc .doc-h3 { font-size: 12pt; color: #14487a; margin: 4mm 0 2mm; text-align: left; font-weight: bold; }
-        .ensayo-doc .hoja p { text-align: justify; font-size: 11.5pt; line-height: 1.55; margin: 0 0 4mm; }
-        .ensayo-doc .portada { text-align: center; }
-        .ensayo-doc .portada p { text-align: center; font-size: 12.5pt; margin: 2mm 0; }
-        .ensayo-doc .portada .cab img { height: 26mm; width: auto; display: block; margin: 0 auto; }
-        .ensayo-doc .portada .uni { font-size: 15pt; font-weight: bold; text-align: center; margin: 4mm 0 12mm; }
-        .ensayo-doc .portada .grande { font-size: 14pt; font-weight: bold; margin: 8mm 0 6mm; }
-        .ensayo-doc .portada .sub { font-size: 13pt; margin: 3mm 0; }
-        .ensayo-doc ul.indice { list-style: none; padding-left: 0; font-size: 12pt; margin-top: 4mm; }
-        .ensayo-doc ul.indice li { margin: 2.6mm 0; text-align: left; overflow: auto; }
-        .ensayo-doc ul.indice .pts { float: right; color: #14487a; font-weight: bold; }
-        .ensayo-doc ul.indice a { color: #111; text-decoration: none; }
-        .ensayo-doc ul.indice a:hover { color: #14487a; text-decoration: underline; }
-        .ensayo-doc .ref { padding-left: 12mm; text-indent: -12mm; margin: 3mm 0; font-size: 11pt; text-align: left; }
-        .ensayo-doc .nota { font-size: 10.5pt; color: #555; margin-top: 8mm; text-align: left; }
-        .ensayo-doc .cita-doc { font-style: italic; }
-        .ensayo-doc .cita-autor { font-style: normal; font-size: 10.5pt; color: #444; }
-        @media (max-width: 860px) {
-            .ensayo-doc { padding: 4mm 2mm; }
-            .ensayo-doc .hoja { width: 100%; min-height: auto; padding: 8mm 5mm; }
+            box-shadow: 0 14px 36px -12px rgba(15, 23, 42, 0.25);
         }
         @media print {
             body { background: #ffffff; }
             .navbar-custom, footer, .no-print { display: none !important; }
-            .ensayo-doc { background: #ffffff; padding: 0; }
-            .ensayo-doc .hoja { width: auto; min-height: 235mm; margin: 0; box-shadow: none; padding: 4mm 2mm; }
         }
 
         footer {
@@ -1453,96 +1419,35 @@
 
     <!-- ======================================================================= -->
     <!-- APARTADO 5: ENSAYO DE ÉTICA Y SOCIEDAD (Módulo ensayo.py)               -->
-    <!-- Formato documento A4: portada, índice, resumen, secciones y referencias -->
+    <!-- La sección muestra el ensayo como documento PDF real, generado desde     -->
+    <!-- ensayo.py vía templates/ensayo_pdf.html (regenerar: generar_pdf.bat)     -->
     <!-- ======================================================================= -->
     <section id="sec-ensayo" class="py-4 {% if seccion_activa != 'ensayo' %}d-none{% endif %}">
         <div class="container">
             <!-- Barra de herramientas (no se imprime) -->
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 no-print">
                 <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: ensayo.py &bull; Formato documento A4
+                    <i class="fa-solid fa-cube me-1"></i>Módulo: ensayo.py &bull; Formato PDF
                 </span>
-                <button onclick="window.print()" class="btn btn-sm btn-primary rounded-pill px-4">
-                    <i class="fa-solid fa-print me-1"></i>Imprimir / Guardar PDF
-                </button>
+                <div class="d-flex gap-2">
+                    <a href="/static/Ensayo_Etica_IA.pdf" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                        <i class="fa-solid fa-arrow-up-right-from-square me-1"></i>Abrir en pestaña nueva
+                    </a>
+                    <a href="/static/Ensayo_Etica_IA.pdf" download class="btn btn-sm btn-primary rounded-pill px-4">
+                        <i class="fa-solid fa-file-arrow-down me-1"></i>Descargar PDF
+                    </a>
+                </div>
             </div>
 
-            {% set total_secciones = (ensayo.secciones|length) %}
-            <div class="ensayo-doc">
+            <!-- Visor del PDF del ensayo (documento A4, 10 páginas) -->
+            <iframe src="/static/Ensayo_Etica_IA.pdf" title="Ensayo: Ética y aspectos sociales de la Inteligencia Artificial" class="ensayo-pdf-frame"></iframe>
 
-                <!-- ============ PÁGINA 1: PORTADA ============ -->
-                <div class="hoja portada">
-                    <div class="cab">
-                        <img src="/static/logo_utp.jpg" alt="Logo Universidad Tecnológica de Puebla">
-                    </div>
-                    <p class="uni">UNIVERSIDAD TECNOLÓGICA DE PUEBLA</p>
-                    <p class="sub">LICENCIATURA EN INGENIERÍA EN TECNOLOGÍAS DE LA INFORMACIÓN E INNOVACIÓN DIGITAL</p>
-                    <p class="grande">{{ ensayo.metadata.titulo }}</p>
-                    <p class="sub">{{ ensayo.metadata.subtitulo }}</p>
-                    <p class="sub">ÁREA: {{ ensayo.metadata.area|upper }}</p>
-                    <p class="sub">ALUMNO:<br>{{ ensayo.metadata.autor|upper }}</p>
-                    <p class="sub">NÚMERO DE CONTROL: UTP0153205</p>
-                    <p class="sub">SÉPTIMO "C"</p>
-                    <p class="sub">{{ ensayo.metadata.fecha }}</p>
-                    <div class="pie">Página 1</div>
-                </div>
-
-                <!-- ============ PÁGINA 2: ÍNDICE ============ -->
-                <div class="hoja">
-                    <h1 class="titulo-ensayo">Índice</h1>
-                    <ul class="indice">
-                        <li><a href="#ensayo-resumen">Resumen ejecutivo (Abstract)</a> <span class="pts">3</span></li>
-                        {% for sec in ensayo.secciones %}
-                        <li><a href="#ensayo-{{ sec.id }}">{{ sec.numero }}. {{ sec.titulo }}</a> <span class="pts">{{ 3 + loop.index }}</span></li>
-                        {% endfor %}
-                        <li><a href="#ensayo-referencias">Referencias bibliográficas</a> <span class="pts">{{ 4 + total_secciones }}</span></li>
-                    </ul>
-                    <p class="nota">
-                        Tiempo de lectura estimado: {{ ensayo.metadata.tiempo_lectura }} &bull;
-                        Extensión: {{ ensayo.metadata.palabras_aprox }} &bull;
-                        Fecha: {{ ensayo.metadata.fecha }}
-                    </p>
-                    <div class="pie">Página 2</div>
-                </div>
-
-                <!-- ============ PÁGINA 3: RESUMEN Y CITAS ============ -->
-                <div class="hoja" id="ensayo-resumen">
-                    <h2 class="doc-h2">Resumen ejecutivo (Abstract)</h2>
-                    <p>{{ ensayo.resumen_ejecutivo }}</p>
-                    <p><strong>Palabras clave:</strong>
-                        {% for pk in ensayo.palabras_clave %}{{ pk }}{% if not loop.last %}, {% endif %}{% endfor %}.
-                    </p>
-                    <h3 class="doc-h3">Citas para la reflexión</h3>
-                    {% for f in ensayo.frases_destacadas %}
-                    <p class="cita-doc">&laquo;{{ f.cita }}&raquo;<br>
-                        <span class="cita-autor">&mdash; {{ f.autor }} ({{ f.obra }})</span>
-                    </p>
-                    {% endfor %}
-                    <div class="pie">Página 3</div>
-                </div>
-
-                <!-- ============ PÁGINAS 4+: UNA POR SECCIÓN ============ -->
-                {% for sec in ensayo.secciones %}
-                <div class="hoja" id="ensayo-{{ sec.id }}">
-                    <h2 class="doc-h2">{{ sec.numero }}. {{ sec.titulo }}</h2>
-                    <h3 class="doc-h3">{{ sec.subtitulo }}</h3>
-                    {% for parrafo in sec.contenido %}
-                    <p>{{ parrafo }}</p>
-                    {% endfor %}
-                    <div class="pie">Página {{ 3 + loop.index }}</div>
-                </div>
-                {% endfor %}
-
-                <!-- ============ ÚLTIMA PÁGINA: REFERENCIAS ============ -->
-                <div class="hoja" id="ensayo-referencias">
-                    <h2 class="doc-h2">Referencias bibliográficas</h2>
-                    {% for ref in ensayo.referencias %}
-                    <p class="ref"><strong>{{ ref.autor }}</strong> ({{ ref.anio }}). <em>{{ ref.titulo }}</em>. {{ ref.fuente }}</p>
-                    {% endfor %}
-                    <div class="pie">Página {{ 4 + total_secciones }}</div>
-                </div>
-
-            </div>
+            <p class="text-center text-secondary small mt-2 mb-0 no-print">
+                <i class="fa-solid fa-circle-info me-1"></i>
+                El ensayo se presenta como documento PDF (10 páginas A4: portada, índice, resumen, secciones y referencias).
+                Si el visor no carga en tu navegador,
+                <a href="/static/Ensayo_Etica_IA.pdf" target="_blank">ábrelo en una pestaña nueva</a>.
+            </p>
         </div>
     </section>
 

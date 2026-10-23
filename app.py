@@ -97,6 +97,17 @@ def api_predict_spam():
     resultado = clasificar_mensaje_spam(texto)
     return jsonify(resultado)
 
+@app.route('/ensayo/imprimir')
+def ensayo_imprimir():
+    """
+    Vista de impresión del ensayo: documento A4 independiente (portada con los
+    datos del curso, índice, resumen, secciones y referencias) renderizado
+    desde ensayo.py. Es la fuente para generar el PDF estático
+    static/Ensayo_Etica_IA.pdf que se muestra incrustado en la sección de ensayo
+    (regenerarlo con generar_pdf.bat).
+    """
+    return render_template('ensayo_pdf.html', ensayo=obtener_ensayo())
+
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:5000/')
 
