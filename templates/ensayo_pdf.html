@@ -175,6 +175,22 @@
 
 <body>
 
+  {# ============ PAGINACIÓN CALCULADA ============
+     Máximo 5 párrafos por hoja: la sección 06 (9 párrafos) ocupa dos páginas
+     (9 y 10). Los números del índice y de los pies de página se calculan aquí
+     para que coincidan SIEMPRE con las páginas físicas del PDF. #}
+  {% set PAG = namespace(actual=4, entradas=[], trozos=[]) %}
+  {% for sec in ensayo.secciones %}
+    {% set t = namespace(lista=[]) %}
+    {% for i in range(0, sec.contenido|length, 5) %}
+      {% set t.lista = t.lista + [sec.contenido[i:i+5]] %}
+    {% endfor %}
+    {% set PAG.entradas = PAG.entradas + [PAG.actual] %}
+    {% set PAG.trozos = PAG.trozos + [t.lista] %}
+    {% set PAG.actual = PAG.actual + (t.lista|length) %}
+  {% endfor %}
+  {% set pagina_refs = PAG.actual %}
+
   <!-- ============ PÁGINA 1: PORTADA ============ -->
   <div class="hoja portada">
     <div class="cab">
@@ -198,9 +214,9 @@
     <ul class="indice">
       <li><span style="color:#14487a; font-weight:bold;">Resumen ejecutivo (Abstract)</span> <span class="pts">3</span></li>
       {% for sec in ensayo.secciones %}
-      <li>{{ sec.numero }}. {{ sec.titulo }} <span class="pts">{{ 3 + loop.index }}</span></li>
+      <li>{{ sec.numero }}. {{ sec.titulo }} <span class="pts">{{ PAG.entradas[loop.index0] }}</span></li>
       {% endfor %}
-      <li>Referencias bibliográficas <span class="pts">{{ 4 + (ensayo.secciones|length) }}</span></li>
+      <li>Referencias bibliográficas <span class="pts">{{ pagina_refs }}</span></li>
     </ul>
     <p class="nota">
       Tiempo de lectura estimado: {{ ensayo.metadata.tiempo_lectura }} &bull;
@@ -226,16 +242,23 @@
     <div class="pie">Página 3</div>
   </div>
 
-  <!-- ============ PÁGINAS 4+: UNA POR SECCIÓN ============ -->
+  <!-- ============ PÁGINAS 4+: SECCIONES (máx. 5 párrafos por hoja) ============ -->
   {% for sec in ensayo.secciones %}
+  {% set idx = loop.index0 %}
+  {% for trozo in PAG.trozos[idx] %}
   <div class="hoja">
+    {% if loop.first %}
     <h2>{{ sec.numero }}. {{ sec.titulo }}</h2>
     <h3>{{ sec.subtitulo }}</h3>
-    {% for parrafo in sec.contenido %}
+    {% else %}
+    <h3>(Continuación)</h3>
+    {% endif %}
+    {% for parrafo in trozo %}
     <p>{{ parrafo }}</p>
     {% endfor %}
-    <div class="pie">Página {{ 3 + loop.index }}</div>
+    <div class="pie">Página {{ PAG.entradas[idx] + loop.index0 }}</div>
   </div>
+  {% endfor %}
   {% endfor %}
 
   <!-- ============ ÚLTIMA PÁGINA: REFERENCIAS ============ -->
@@ -244,7 +267,7 @@
     {% for ref in ensayo.referencias %}
     <p class="ref"><strong>{{ ref.autor }}</strong> ({{ ref.anio }}). <em>{{ ref.titulo }}</em>. {{ ref.fuente }}</p>
     {% endfor %}
-    <div class="pie">Página {{ 4 + (ensayo.secciones|length) }}</div>
+    <div class="pie">Página {{ pagina_refs }}</div>
   </div>
 
 </body>
