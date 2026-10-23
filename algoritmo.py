@@ -252,7 +252,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda no informada (ciega)",
                 "alias": "CIEGA / BLIND",
-                "color": "#0ea5e9",
+                "color": "#0284c7",
                 "icono": "fa-map",
                 "def": "No usa estimaciones: explora a ciegas basándose solo en las reglas del problema, sin pista de si se acerca o se aleja de la meta.",
                 "algoritmos": ["BFS (anchura)", "DFS (profundidad)", "UCS (costo uniforme)", "DLS (profundidad limitada)", "IDS (profundidad iterativa)"]
@@ -260,7 +260,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda informada (heurística)",
                 "alias": "HEURÍSTICA / INFORMED",
-                "color": "#8b5cf6",
+                "color": "#7c3aed",
                 "icono": "fa-wand-magic-sparkles",
                 "def": "Utiliza una función heurística h(n) que estima cuánto falta para la meta y prioriza expandir los caminos más prometedores.",
                 "algoritmos": ["Greedy Best-First", "A*", "IDA*", "SMA*", "Beam Search"]
@@ -277,7 +277,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda de camino (pathfinding)",
                 "alias": "RUTAS",
-                "color": "#0ea5e9",
+                "color": "#0284c7",
                 "icono": "fa-route",
                 "def": "Encuentra la ruta de un punto a otro en un grafo o mapa: importa el camino completo, no solo el destino.",
                 "algoritmos": ["BFS", "DFS", "UCS", "A*", "IDA*"]
@@ -285,7 +285,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda local (optimización)",
                 "alias": "LOCAL",
-                "color": "#f59e0b",
+                "color": "#d97706",
                 "icono": "fa-mountain",
                 "def": "Mejora un estado moviéndose entre vecinos para maximizar o minimizar una función. No guarda el camino: solo importa el estado final. Ideal cuando el espacio es gigantesco.",
                 "algoritmos": ["Hill Climbing", "Recocido Simulado", "Búsqueda Tabú", "Algoritmos Genéticos"]
@@ -293,7 +293,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda con adversario (juegos)",
                 "alias": "ADVERSARIAL",
-                "color": "#f43f5e",
+                "color": "#e11d48",
                 "icono": "fa-chess-knight",
                 "def": "Decide jugadas suponiendo un oponente que también juega de manera óptima: minimiza mi pérdida y maximiza mi ganancia.",
                 "algoritmos": ["Minimax", "Poda Alfa-Beta", "MCTS (Monte Carlo)"]
@@ -301,7 +301,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Búsqueda con restricciones (CSP)",
                 "alias": "RESTRICCIONES",
-                "color": "#10b981",
+                "color": "#059669",
                 "icono": "fa-puzzle-piece",
                 "def": "Busca combinaciones válidas de variables que cumplan un conjunto de reglas sin violar ninguna restricción.",
                 "algoritmos": ["Backtracking", "Forward Checking", "AC-3"]
@@ -318,7 +318,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Memoria exponencial",
                 "alias": "O(b^d)",
-                "color": "#f43f5e",
+                "color": "#e11d48",
                 "icono": "fa-database",
                 "def": "Guarda todos los nodos generados en la frontera: completa y óptima, pero se queda sin memoria rápido.",
                 "algoritmos": ["BFS", "UCS", "A*", "Greedy"]
@@ -326,7 +326,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Memoria lineal",
                 "alias": "O(b·d)",
-                "color": "#0ea5e9",
+                "color": "#0284c7",
                 "icono": "fa-bars-staggered",
                 "def": "Guarda solo el camino actual y sus hermanos: memoria proporcional a la profundidad.",
                 "algoritmos": ["DFS", "DLS", "IDS", "IDA*"]
@@ -334,7 +334,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Memoria acotada",
                 "alias": "O(1) / configurable",
-                "color": "#10b981",
+                "color": "#059669",
                 "icono": "fa-feather",
                 "def": "Memoria casi nula o limitada por diseño: sacrifican garantías a cambio de caber en cualquier máquina.",
                 "algoritmos": ["SMA*", "Beam Search", "Hill Climbing"]
@@ -351,7 +351,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "Óptimos",
                 "alias": "GARANTIZADO",
-                "color": "#22c55e",
+                "color": "#16a34a",
                 "icono": "fa-medal",
                 "def": "Garantizan siempre la mejor solución (menor costo), bajo sus condiciones de uso.",
                 "algoritmos": ["BFS (costos iguales)", "UCS (costos iguales)", "A* (h admisible)", "IDA*", "Minimax + Alfa-Beta"]
@@ -359,7 +359,7 @@ CLASIFICACION_BUSQUEDA = [
             {
                 "nombre": "No óptimos",
                 "alias": "SIN GARANTÍA",
-                "color": "#fb923c",
+                "color": "#ea580c",
                 "icono": "fa-triangle-exclamation",
                 "def": "Respuestas rápidas y baratas, pero no aseguran el menor costo: pueden quedarse en máximos locales.",
                 "algoritmos": ["DFS", "DLS", "Greedy", "Hill Climbing", "Beam Search"]
@@ -404,15 +404,15 @@ GUIA_SELECCION = [
 
 # Tabla comparativa de complejidades (datos de Russell & Norvig, AIMA)
 TABLA_COMPARATIVA = [
-    {"algoritmo": "BFS", "familia": "Ciega", "color": "#0ea5e9", "tiempo": "O(b^d)", "espacio": "O(b^d)", "optimo": "Sí (costos iguales)"},
-    {"algoritmo": "DFS", "familia": "Ciega", "color": "#0ea5e9", "tiempo": "O(b^m)", "espacio": "O(b·m)", "optimo": "No"},
-    {"algoritmo": "UCS", "familia": "Ciega", "color": "#0ea5e9", "tiempo": "O(b^(C*/ε))", "espacio": "Exponencial", "optimo": "Sí"},
-    {"algoritmo": "IDS", "familia": "Ciega", "color": "#0ea5e9", "tiempo": "O(b^d)", "espacio": "O(b·d)", "optimo": "Sí (costos iguales)"},
-    {"algoritmo": "Greedy", "familia": "Heurística", "color": "#8b5cf6", "tiempo": "O(b^m)", "espacio": "O(b^m)", "optimo": "No"},
-    {"algoritmo": "A*", "familia": "Heurística", "color": "#8b5cf6", "tiempo": "O(b^d)", "espacio": "O(b^d)", "optimo": "Sí (h admisible)"},
-    {"algoritmo": "Hill Climbing", "familia": "Local", "color": "#f59e0b", "tiempo": "Iteraciones locales", "espacio": "O(1)", "optimo": "No (máximos locales)"},
-    {"algoritmo": "Recocido Simulado", "familia": "Local", "color": "#f59e0b", "tiempo": "Controlado por temperatura", "espacio": "O(1)", "optimo": "Probabilístico"},
-    {"algoritmo": "Minimax + αβ", "familia": "Adversarial", "color": "#f43f5e", "tiempo": "O(b^(m/2)) con poda ideal", "espacio": "O(b·m)", "optimo": "Sí (evaluación perfecta)"}
+    {"algoritmo": "BFS", "familia": "Ciega", "color": "#0284c7", "tiempo": "O(b^d)", "espacio": "O(b^d)", "optimo": "Sí (costos iguales)"},
+    {"algoritmo": "DFS", "familia": "Ciega", "color": "#0284c7", "tiempo": "O(b^m)", "espacio": "O(b·m)", "optimo": "No"},
+    {"algoritmo": "UCS", "familia": "Ciega", "color": "#0284c7", "tiempo": "O(b^(C*/ε))", "espacio": "Exponencial", "optimo": "Sí"},
+    {"algoritmo": "IDS", "familia": "Ciega", "color": "#0284c7", "tiempo": "O(b^d)", "espacio": "O(b·d)", "optimo": "Sí (costos iguales)"},
+    {"algoritmo": "Greedy", "familia": "Heurística", "color": "#7c3aed", "tiempo": "O(b^m)", "espacio": "O(b^m)", "optimo": "No"},
+    {"algoritmo": "A*", "familia": "Heurística", "color": "#7c3aed", "tiempo": "O(b^d)", "espacio": "O(b^d)", "optimo": "Sí (h admisible)"},
+    {"algoritmo": "Hill Climbing", "familia": "Local", "color": "#d97706", "tiempo": "Iteraciones locales", "espacio": "O(1)", "optimo": "No (máximos locales)"},
+    {"algoritmo": "Recocido Simulado", "familia": "Local", "color": "#d97706", "tiempo": "Controlado por temperatura", "espacio": "O(1)", "optimo": "Probabilístico"},
+    {"algoritmo": "Minimax + αβ", "familia": "Adversarial", "color": "#e11d48", "tiempo": "O(b^(m/2)) con poda ideal", "espacio": "O(b·m)", "optimo": "Sí (evaluación perfecta)"}
 ]
 
 LEYENDA_TABLA = (

@@ -305,7 +305,7 @@
             border-radius: 12px;
             padding: 16px;
             height: 100%;
-            border-top: 3px solid #0ea5e9;
+            border-top: 3px solid #0284c7;
             transition: all 0.2s ease;
         }
         .alg-rama-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
@@ -322,31 +322,39 @@
         }
 
         /* ============================================================ */
-        /* INFOGRAFÍA — póster oscuro estilo propio                      */
+        /* INFOGRAFÍA — póster claro estilo propio                       */
         /* ============================================================ */
         .alg-poster {
-            background: linear-gradient(155deg, #0f172a 0%, #1e293b 55%, #0f172a 100%);
+            background: linear-gradient(165deg, #eff6ff 0%, #f8fafc 48%, #ecfeff 100%);
+            border: 1px solid var(--slate-200);
             border-radius: 22px;
             padding: 34px 30px;
-            color: #e2e8f0;
-            box-shadow: 0 24px 60px -20px rgba(15, 23, 42, 0.55);
+            box-shadow: 0 24px 50px -24px rgba(2, 132, 199, 0.30);
         }
         @media (max-width: 768px) { .alg-poster { padding: 22px 16px; } }
 
+        .alg-poster-ribbon {
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #0284c7, #7c3aed, #0284c7);
+            margin-bottom: 22px;
+        }
+
         .alg-poster-band {
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.04);
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
             border-radius: 14px;
             padding: 12px 18px;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.05);
         }
 
         .alg-poster-chip {
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #e2e8f0;
+            background: #ffffff;
+            border: 1px solid #bae6fd;
+            color: #075985;
             font-size: 0.78rem;
             font-weight: 600;
             padding: 6px 14px;
@@ -360,29 +368,29 @@
             width: 34px;
             height: 34px;
             border-radius: 10px;
-            background: #38bdf8;
-            color: #0f172a;
+            background: #0284c7;
+            color: #ffffff;
             font-weight: 800;
             font-size: 1rem;
             flex-shrink: 0;
         }
 
         .alg-poster-rama {
-            background: rgba(255,255,255,0.045);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-top: 3px solid #38bdf8;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-top: 3px solid #0284c7;
             border-radius: 14px;
             padding: 16px 15px;
             height: 100%;
-            transition: transform 0.2s ease, background 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .alg-poster-rama:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
+        .alg-poster-rama:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(2, 132, 199, 0.10); }
 
         .alg-poster-algo {
             display: inline-block;
-            background: rgba(255,255,255,0.09);
-            border: 1px solid rgba(255,255,255,0.16);
-            color: #f1f5f9;
+            background: var(--slate-100);
+            border: 1px solid var(--slate-200);
+            color: var(--slate-700);
             font-size: 0.72rem;
             font-weight: 600;
             padding: 3px 10px;
@@ -391,24 +399,28 @@
         }
 
         .alg-guide-row {
-            background: rgba(255,255,255,0.045);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
             border-radius: 12px;
             padding: 14px 16px;
             height: 100%;
         }
 
-        .alg-poster table { color: #e2e8f0; margin-bottom: 0; }
+        /* Bootstrap 5.3 pinta las tablas con --bs-table-bg blanco por defecto:
+           dentro de un panel personalizado hay que fijar bg y color de texto
+           o el texto claro queda invisible (blanco sobre blanco). */
+        .alg-poster table { --bs-table-bg: #ffffff; color: var(--slate-700); margin-bottom: 0; }
         .alg-poster table th {
-            background: rgba(255,255,255,0.09) !important;
-            color: #f8fafc !important;
-            border-color: rgba(255,255,255,0.12) !important;
+            background: var(--slate-100) !important;
+            color: var(--slate-900) !important;
+            border-color: var(--slate-200) !important;
             font-size: 0.78rem;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         .alg-poster table td {
-            border-color: rgba(255,255,255,0.09) !important;
+            color: var(--slate-700);
+            border-color: var(--slate-200) !important;
             font-size: 0.83rem;
             vertical-align: middle;
         }
@@ -417,8 +429,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #38bdf8;
-            color: #0f172a;
+            background: #0284c7;
+            color: #ffffff;
             font-weight: 800;
             font-size: 0.85rem;
             border-radius: 8px;
@@ -427,7 +439,7 @@
             flex-shrink: 0;
         }
 
-        .alg-poster a { color: #7dd3fc; }
+        .alg-poster a { color: var(--primary-dark); }
 
         footer {
             background-color: #ffffff;
@@ -961,16 +973,19 @@
                 </div>
 
                 <div class="alg-poster">
+                    <!-- Cinta decorativa -->
+                    <div class="alg-poster-ribbon"></div>
+
                     <!-- Encabezado del póster -->
                     <div class="text-center mb-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-2" style="width: 58px; height: 58px; background: linear-gradient(135deg, #38bdf8, #8b5cf6);">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-2" style="width: 58px; height: 58px; background: linear-gradient(135deg, #0284c7, #7c3aed);">
                             <i class="fa-solid fa-magnifying-glass-chart text-white fs-4"></i>
                         </div>
-                        <h3 class="fw-bold text-white mb-1" style="letter-spacing: 0.04em;">CLASIFICACIÓN DE ALGORITMOS DE BÚSQUEDA</h3>
-                        <p class="small mb-3 mx-auto" style="color: #94a3b8; max-width: 720px;">{{ infografia_busqueda.subtitulo }}</p>
+                        <h3 class="fw-bold text-dark mb-1" style="letter-spacing: 0.04em;">CLASIFICACIÓN DE ALGORITMOS DE BÚSQUEDA</h3>
+                        <p class="small text-secondary mb-3 mx-auto" style="max-width: 720px;">{{ infografia_busqueda.subtitulo }}</p>
                         <div class="d-flex flex-wrap justify-content-center gap-2">
                             {% for d in infografia_busqueda.dimensiones %}
-                            <span class="alg-poster-chip"><i class="fa-solid {{ d.icono }}" style="color:#7dd3fc;"></i>{{ d.corto }}</span>
+                            <span class="alg-poster-chip"><i class="fa-solid {{ d.icono }} text-primary"></i>{{ d.corto }}</span>
                             {% endfor %}
                         </div>
                     </div>
@@ -981,8 +996,8 @@
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <span class="alg-num-badge">{{ cr.numero }}</span>
                             <div>
-                                <h6 class="fw-bold text-white mb-0" style="letter-spacing: 0.02em;">{{ cr.criterio|upper }}</h6>
-                                <small style="color: #94a3b8;">{{ cr.intro }}</small>
+                                <h6 class="fw-bold text-dark mb-0" style="letter-spacing: 0.02em;">{{ cr.criterio|upper }}</h6>
+                                <small class="text-secondary">{{ cr.intro }}</small>
                             </div>
                         </div>
                         {% set colg = 'col-lg-3' if (cr.ramas|length == 4) else ('col-lg-4' if (cr.ramas|length == 3) else 'col-lg-6') %}
@@ -991,12 +1006,12 @@
                             <div class="col-md-6 {{ colg }}">
                                 <div class="alg-poster-rama" style="border-top-color: {{ rama.color }};">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="width: 32px; height: 32px; background-color: {{ rama.color }}22; color: {{ rama.color }};">
+                                        <span class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="width: 32px; height: 32px; background-color: {{ rama.color }}1f; color: {{ rama.color }};">
                                             <i class="fa-solid {{ rama.icono }}"></i>
                                         </span>
-                                        <h6 class="fw-bold text-white mb-0" style="font-size: 0.82rem; line-height: 1.25;">{{ rama.nombre }}</h6>
+                                        <h6 class="fw-bold text-dark mb-0" style="font-size: 0.82rem; line-height: 1.25;">{{ rama.nombre }}</h6>
                                     </div>
-                                    <p class="mb-2" style="color:#94a3b8; font-size: 0.76rem; line-height: 1.45;">{{ rama.def }}</p>
+                                    <p class="mb-2 text-secondary" style="font-size: 0.76rem; line-height: 1.45;">{{ rama.def }}</p>
                                     <div class="d-flex flex-wrap gap-1">
                                         {% for a in rama.algoritmos %}
                                         <span class="alg-poster-algo">{{ a }}</span>
@@ -1011,14 +1026,14 @@
 
                     <!-- Guía rápida de selección -->
                     <div class="alg-poster-band mb-3">
-                        <h6 class="fw-bold text-white mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-compass me-2" style="color:#7dd3fc;"></i>GUÍA RÁPIDA DE SELECCIÓN — ¿CUÁL USAR?</h6>
+                        <h6 class="fw-bold text-dark mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-compass me-2 text-primary"></i>GUÍA RÁPIDA DE SELECCIÓN — ¿CUÁL USAR?</h6>
                         <div class="row g-2">
                             {% for g in infografia_busqueda.guia %}
                             <div class="col-md-6 col-lg-4">
                                 <div class="alg-guide-row">
-                                    <p class="mb-1 fw-semibold" style="color:#e2e8f0; font-size: 0.8rem;">{{ g.pregunta }}</p>
-                                    <p class="mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-arrow-right-long me-1" style="color:#7dd3fc;"></i><strong style="color:#7dd3fc;">{{ g.recomendacion }}</strong></p>
-                                    <p class="mb-0" style="color:#94a3b8; font-size: 0.72rem;">{{ g.porque }}</p>
+                                    <p class="mb-1 fw-semibold text-dark" style="font-size: 0.8rem;">{{ g.pregunta }}</p>
+                                    <p class="mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-arrow-right-long me-1 text-primary"></i><strong class="text-primary">{{ g.recomendacion }}</strong></p>
+                                    <p class="mb-0 text-secondary" style="font-size: 0.72rem;">{{ g.porque }}</p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -1027,7 +1042,7 @@
 
                     <!-- Tabla comparativa de complejidades -->
                     <div class="alg-poster-band mb-3">
-                        <h6 class="fw-bold text-white mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-table-list me-2" style="color:#7dd3fc;"></i>TABLA COMPARATIVA DE COMPLEJIDADES</h6>
+                        <h6 class="fw-bold text-dark mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-table-list me-2 text-primary"></i>TABLA COMPARATIVA DE COMPLEJIDADES</h6>
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered align-middle">
                                 <thead>
@@ -1042,8 +1057,8 @@
                                 <tbody>
                                     {% for t in infografia_busqueda.tabla %}
                                     <tr>
-                                        <td class="fw-bold text-white">{{ t.algoritmo }}</td>
-                                        <td><span class="badge rounded-pill" style="background-color: {{ t.color }}22; color: {{ t.color }};">{{ t.familia }}</span></td>
+                                        <td class="fw-bold text-dark">{{ t.algoritmo }}</td>
+                                        <td><span class="badge rounded-pill" style="background-color: {{ t.color }}1f; color: {{ t.color }};">{{ t.familia }}</span></td>
                                         <td class="font-monospace" style="font-size: 0.78rem;">{{ t.tiempo }}</td>
                                         <td class="font-monospace" style="font-size: 0.78rem;">{{ t.espacio }}</td>
                                         <td>{{ t.optimo }}</td>
@@ -1052,33 +1067,33 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p class="mb-0 mt-2" style="color:#64748b; font-size: 0.72rem;"><i class="fa-solid fa-circle-info me-1"></i>{{ infografia_busqueda.leyenda }}</p>
+                        <p class="mb-0 mt-2 text-secondary" style="font-size: 0.72rem;"><i class="fa-solid fa-circle-info me-1"></i>{{ infografia_busqueda.leyenda }}</p>
                     </div>
 
                     <!-- Historia + Aplicaciones -->
                     <div class="row g-3 mb-2">
                         <div class="col-lg-7">
                             <div class="alg-poster-band h-100">
-                                <h6 class="fw-bold text-white mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-clock-rotate-left me-2" style="color:#7dd3fc;"></i>LÍNEA DEL TIEMPO</h6>
+                                <h6 class="fw-bold text-dark mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>LÍNEA DEL TIEMPO</h6>
                                 {% for h in infografia_busqueda.historia %}
                                 <div class="d-flex align-items-start gap-3 mb-3">
                                     <span class="alg-year-badge"><i class="fa-solid {{ h.icono }} me-1"></i>{{ h.anio }}</span>
-                                    <p class="mb-0" style="color:#cbd5e1; font-size: 0.8rem; line-height: 1.5;">{{ h.hecho }}</p>
+                                    <p class="mb-0 text-secondary" style="font-size: 0.8rem; line-height: 1.5;">{{ h.hecho }}</p>
                                 </div>
                                 {% endfor %}
                             </div>
                         </div>
                         <div class="col-lg-5">
                             <div class="alg-poster-band h-100">
-                                <h6 class="fw-bold text-white mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-earth-americas me-2" style="color:#7dd3fc;"></i>DÓNDE SE USAN HOY</h6>
+                                <h6 class="fw-bold text-dark mb-3" style="letter-spacing: 0.02em;"><i class="fa-solid fa-earth-americas me-2 text-primary"></i>DÓNDE SE USAN HOY</h6>
                                 {% for a in infografia_busqueda.aplicaciones %}
                                 <div class="d-flex align-items-start gap-2 mb-2">
-                                    <span class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="width: 30px; height: 30px; background-color: rgba(56,189,248,0.14); color: #7dd3fc;">
+                                    <span class="d-inline-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="width: 30px; height: 30px; background-color: #e0f2fe; color: #0284c7;">
                                         <i class="fa-solid {{ a.icono }}" style="font-size: 0.8rem;"></i>
                                     </span>
                                     <div>
-                                        <p class="mb-0 fw-bold" style="color:#f1f5f9; font-size: 0.8rem;">{{ a.lugar }}</p>
-                                        <p class="mb-0" style="color:#94a3b8; font-size: 0.73rem;">{{ a.detalle }}</p>
+                                        <p class="mb-0 fw-bold text-dark" style="font-size: 0.8rem;">{{ a.lugar }}</p>
+                                        <p class="mb-0 text-secondary" style="font-size: 0.73rem;">{{ a.detalle }}</p>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -1086,7 +1101,7 @@
                         </div>
                     </div>
 
-                    <p class="text-center mb-0" style="color:#64748b; font-size: 0.72rem;">{{ infografia_busqueda.fuentes }}</p>
+                    <p class="text-center text-secondary mb-0" style="font-size: 0.72rem;">{{ infografia_busqueda.fuentes }}</p>
                 </div>
             </div>
         </div>
