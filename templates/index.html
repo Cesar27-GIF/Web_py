@@ -476,6 +476,85 @@
             .navbar-custom, footer, .no-print { display: none !important; }
         }
 
+        /* ============================================================ */
+        /* ENCABEZADOS HERO DE SECCIÓN + mejoras visuales                 */
+        /* ============================================================ */
+        .section-hero {
+            text-align: center;
+            margin-bottom: 2.4rem;
+            position: relative;
+        }
+        .hero-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.35rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--hero-a), var(--hero-b));
+            box-shadow: 0 12px 26px -10px var(--hero-a);
+        }
+        .hero-kicker {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--hero-a);
+            margin-bottom: 4px;
+        }
+        .hero-title {
+            font-weight: 800;
+            color: var(--slate-900);
+            margin: 0 0 8px;
+            font-size: 1.65rem;
+            letter-spacing: -0.01em;
+        }
+        .hero-sub {
+            color: var(--slate-500);
+            font-size: 0.92rem;
+            max-width: 720px;
+            margin: 0 auto 14px;
+            line-height: 1.6;
+        }
+        .hero-line {
+            height: 4px;
+            width: 96px;
+            margin: 0 auto;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--hero-a), var(--hero-b));
+        }
+        .hero-glosario   { --hero-a: #0284c7; --hero-b: #14b8a6; }
+        .hero-timeline   { --hero-a: #d97706; --hero-b: #e11d48; }
+        .hero-clasifica  { --hero-a: #7c3aed; --hero-b: #db2777; }
+        .hero-algoritmos { --hero-a: #0284c7; --hero-b: #7c3aed; }
+        .hero-ml         { --hero-a: #e11d48; --hero-b: #7c3aed; }
+
+        /* Círculos numerados con degradado (pipeline ML + criterios algoritmos) */
+        .step-circle {
+            background: linear-gradient(135deg, #0284c7, #7c3aed) !important;
+            box-shadow: 0 6px 14px -4px rgba(2, 132, 199, 0.45);
+        }
+
+        /* Línea de tiempo con degradado y fichas con vida propia */
+        .timeline-line { background: linear-gradient(180deg, #0284c7, #7c3aed, #14b8a6) !important; }
+        .timeline-card .badge.bg-primary {
+            background: linear-gradient(135deg, #d97706, #e11d48) !important;
+        }
+        .timeline-badge { transition: transform 0.2s ease; }
+        .timeline-item:hover .timeline-badge { transform: scale(1.12); }
+
+        /* Glosario: zoom de imagen al pasar el mouse + borde superior por nivel */
+        .card-term .card-img-top { transition: transform 0.35s ease; }
+        .card-term:hover .card-img-top { transform: scale(1.05); }
+        .nivel-top-comun { border-top: 3px solid #16a34a; }
+        .nivel-top-poco_comun { border-top: 3px solid #0284c7; }
+        .nivel-top-prueba { border-top: 3px solid #d97706; }
+        .nivel-top-emergente { border-top: 3px solid #7c3aed; }
+
         footer {
             background-color: #ffffff;
             border-top: 1px solid var(--slate-200);
@@ -538,9 +617,6 @@
             </div>
 
             <div class="d-none d-md-flex align-items-center gap-2">
-                <a href="/static/Glosario_y_Evolucion_IA.pptx" download class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                    <i class="fa-solid fa-file-powerpoint me-1"></i>Descargar PPTX
-                </a>
             </div>
         </div>
     </nav>
@@ -551,13 +627,15 @@
     <section id="sec-glosario" class="py-4 {% if seccion_activa != 'glosario' %}d-none{% endif %}">
         <div class="container">
             <div class="text-center mb-4">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: glosario.py
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Glosario Interactivo de Inteligencia Artificial</h2>
-                <p class="text-secondary small max-w-2xl mx-auto">
-                    Catálogo de 20 conceptos técnicos fundamentales analizados a profundidad y clasificados por su nivel de adopción e impacto tecnológico.
-                </p>
+                <div class="section-hero hero-glosario">
+                    <div class="hero-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <span class="hero-kicker">Conceptos y definiciones</span>
+                    <h2 class="hero-title">Glosario Interactivo de Inteligencia Artificial</h2>
+                    <p class="hero-sub">
+                        Catálogo de 20 conceptos técnicos fundamentales analizados a profundidad y clasificados por su nivel de adopción e impacto tecnológico.
+                    </p>
+                    <div class="hero-line"></div>
+                </div>
 
                 <!-- Buscador de Términos -->
                 <form action="/" method="GET" class="mx-auto my-3" style="max-width: 520px;">
@@ -600,7 +678,7 @@
             <div class="row g-4">
                 {% for item in terminos %}
                 <div class="col-md-6 col-lg-4">
-                    <div class="card card-term h-100 d-flex flex-column justify-content-between">
+                    <div class="card card-term h-100 d-flex flex-column justify-content-between nivel-top-{{ item.nivel_code }}">
                         <div>
                             <img src="{{ item.imagen }}" class="card-img-top" alt="{{ item.termino }}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&auto=format&fit=crop'">
                             <div class="card-body p-3 pb-2">
@@ -640,14 +718,14 @@
     <!-- ======================================================================= -->
     <section id="sec-timeline" class="py-4 {% if seccion_activa != 'timeline' %}d-none{% endif %}">
         <div class="container">
-            <div class="text-center mb-5">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: linea_tiempo.py
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Evolución Histórica de la Inteligencia Artificial</h2>
-                <p class="text-secondary small max-w-2xl mx-auto">
+            <div class="section-hero hero-timeline">
+                <div class="hero-icon"><i class="fa-solid fa-timeline"></i></div>
+                <span class="hero-kicker">Historia y evolución</span>
+                <h2 class="hero-title">Evolución Histórica de la Inteligencia Artificial</h2>
+                <p class="hero-sub">
                     Recorrido cronológico a través de 10 hitos clave desde los pioneros de 1950 hasta los agentes autónomos de frontera en la actualidad.
                 </p>
+                <div class="hero-line"></div>
             </div>
 
             <div class="timeline-container position-relative">
@@ -701,21 +779,22 @@
     <!-- ======================================================================= -->
     <section id="sec-clasificacion" class="py-4 {% if seccion_activa != 'clasificacion' %}d-none{% endif %}">
         <div class="container">
-            <div class="text-center mb-5">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: clasificacion.py
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Clasificación Estructural de la Inteligencia Artificial</h2>
-                <p class="text-secondary small max-w-2xl mx-auto">
+            <div class="section-hero hero-clasifica">
+                <div class="hero-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span class="hero-kicker">Taxonomía y niveles funcionales</span>
+                <h2 class="hero-title">Clasificación Estructural de la Inteligencia Artificial</h2>
+                <p class="hero-sub">
                     Niveles fundamentales de capacidad cognitiva y alcance operativo: IA Débil, IA Fuerte (AGI) y Superinteligencia Artificial (ASI).
                 </p>
+                <div class="hero-line"></div>
             </div>
 
             <!-- Las 3 Categorías Clásicas -->
             <div class="row g-4 mb-5">
                 {% for item in clasificacion %}
                 <div class="col-lg-4">
-                    <div class="clasif-card h-100 d-flex flex-column justify-content-between">
+                    {% set color_top = {'success': '#16a34a', 'warning': '#d97706', 'danger': '#dc2626'}[item.badge_color] %}
+                    <div class="clasif-card h-100 d-flex flex-column justify-content-between" style="border-top: 4px solid {{ color_top }};">
                         <div>
                             <img src="{{ item.imagen_gdrive }}" class="clasif-img" alt="{{ item.tipo }}" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&auto=format&fit=crop'">
                             <div class="p-4">
@@ -795,14 +874,16 @@
         <div class="container">
             <!-- Encabezado del módulo -->
             <div class="text-center mb-4">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: algoritmo.py
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Algoritmos de Búsqueda en Inteligencia Artificial</h2>
-                <p class="text-secondary small max-w-2xl mx-auto" style="max-width: 760px;">
-                    Investigación completa: qué es un algoritmo de búsqueda, sus elementos, un ejemplo paso a paso,
-                    su clasificación por criterios y una infografía visual con historia, tabla comparativa y aplicaciones reales.
-                </p>
+                <div class="section-hero hero-algoritmos">
+                    <div class="hero-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <span class="hero-kicker">Investigación de algoritmos de búsqueda</span>
+                    <h2 class="hero-title">Algoritmos de Búsqueda en Inteligencia Artificial</h2>
+                    <p class="hero-sub" style="max-width: 760px;">
+                        Investigación completa: qué es un algoritmo de búsqueda, sus elementos, un ejemplo paso a paso,
+                        su clasificación por criterios y una infografía visual con historia, tabla comparativa y aplicaciones reales.
+                    </p>
+                    <div class="hero-line"></div>
+                </div>
 
                 <!-- Índice de incisos (a) - (e) -->
                 <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
@@ -1173,14 +1254,14 @@
     <section id="sec-ml" class="py-4 {% if seccion_activa != 'ml' %}d-none{% endif %}">
         <div class="container">
             <!-- Encabezado -->
-            <div class="text-center mb-5">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill mb-2">
-                    <i class="fa-solid fa-cube me-1"></i>Módulo: machine_learning.py
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Machine Learning: Conceptos y Demostrador Práctico</h2>
-                <p class="text-secondary small max-w-2xl mx-auto">
+            <div class="section-hero hero-ml">
+                <div class="hero-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+                <span class="hero-kicker">Teoría y demostrador en vivo</span>
+                <h2 class="hero-title">Machine Learning: Conceptos y Demostrador Práctico</h2>
+                <p class="hero-sub">
                     Aprende los fundamentos teóricos y prueba un modelo interactivo de Machine Learning en vivo implementado en Python.
                 </p>
+                <div class="hero-line"></div>
             </div>
 
             <!-- Definición formal -->
