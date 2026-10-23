@@ -10,6 +10,7 @@ from linea_tiempo import obtener_hitos
 from clasificacion import obtener_clasificacion, obtener_niveles_funcionales
 from machine_learning import obtener_info_ml, clasificar_mensaje_spam
 from ensayo import obtener_ensayo
+from algoritmo import obtener_info_algoritmos, obtener_infografia
 
 app = Flask(__name__)
 
@@ -47,6 +48,10 @@ def index():
     # Datos del Ensayo Académico
     ensayo_info = obtener_ensayo()
 
+    # Datos de Algoritmos de Búsqueda (módulo algoritmo.py)
+    info_algoritmos = obtener_info_algoritmos()
+    infografia_busqueda = obtener_infografia()
+
     return render_template(
         'index.html',
         # Parámetros de navegación y filtros
@@ -65,7 +70,10 @@ def index():
         # Machine Learning
         ml_info=ml_info,
         # Ensayo
-        ensayo=ensayo_info
+        ensayo=ensayo_info,
+        # Algoritmos de Búsqueda
+        info_algoritmos=info_algoritmos,
+        infografia_busqueda=infografia_busqueda
     )
 
 @app.route('/api/ml/predict', methods=['POST', 'GET'])
@@ -101,6 +109,7 @@ if __name__ == '__main__':
     print("  [*] clasificacion.py      -> Clasificacion de IA (Debil, Fuerte, ASI)")
     print("  [*] machine_learning.py   -> Teoria + Ejemplo interactivo Naive Bayes")
     print("  [*] ensayo.py             -> Ensayo de Etica y aspectos sociales de la IA")
+    print("  [*] algoritmo.py          -> Algoritmos de busqueda + Infografia interactiva")
     print(" Servidor disponible en: http://127.0.0.1:5000/")
     print("=" * 60)
     Timer(1.2, open_browser).start()

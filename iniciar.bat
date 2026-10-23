@@ -4,7 +4,7 @@ color 0A
 echo ===================================================
 echo  Iniciando Servidor Web de IA (Flask)...
 echo  Modulos: Glosario, Linea de Tiempo, Clasificacion,
-echo           Machine Learning y Ensayo de Etica
+echo           Algoritmos de Busqueda, Machine Learning y Ensayo de Etica
 echo ===================================================
 echo.
 cd /d "%~dp0"
