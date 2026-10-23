@@ -1,7 +1,7 @@
 """
 Módulo: Glosario de Inteligencia Artificial
-Contiene los 20 conceptos técnicos organizados por nivel de uso,
-así como funciones de búsqueda y filtrado.
+Contiene los 21 conceptos técnicos organizados por nivel de uso,
+incluyendo esquemas conceptuales y funciones de búsqueda y filtrado.
 """
 
 TERMINOS = [
@@ -55,6 +55,47 @@ TERMINOS = [
         "def": "Dominio enfocado en la extracción de invariantes espaciales y descriptores semánticos a partir de matrices de píxeles para segmentación, detección de objetos y reconstrucción tridimensional de escenas.",
         "imagen": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop",
         "aplicacion": "Reconocimiento facial de seguridad, inspección industrial automatizada y resonancias médicas."
+    },
+    {
+        "id": 21,
+        "nivel": "Muy Común",
+        "nivel_code": "comun",
+        "termino": "Sistema Inteligente (Intelligent System)",
+        "categoria": "Fundamentos",
+        "def": "Entidad computacional integrada que percibe su entorno a través de sensores, procesa la información mediante algoritmos de razonamiento y aprendizaje, y toma decisiones autónomas ejecutando acciones a través de efectores para cumplir un objetivo específico.",
+        "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop",
+        "aplicacion": "Vehículos de conducción autónoma, sistemas de domótica adaptativa, asistentes virtuales y robótica industrial.",
+        "esquema": """
+                      +----------------------------------+
+                      |         MEDIO AMBIENTE           |
+                      |           (ENTORNO)              |
+                      +----------------------------------+
+                            |                      ^
+         Datos de entrada / |                      | Modificación del
+                 Estímulos  |                      | entorno (Acción)
+                            v                      |
+                      +-----------+          +-----------+
+                      | SENSORES  |          | EFECTORES |
+                      +-----------+          +-----------+
+                            |                      ^
+          Percepción cruda  |                      | Comando de acción
+                            v                      |
+       +---------------------------------------------------------------+
+       |                      SISTEMA INTELIGENTE                      |
+       |                                                               |
+       |   +------------------+             +----------------------+   |
+       |   |    PERCEPCIÓN    | ----------> |    RAZONAMIENTO Y    |   |
+       |   | (Procesamiento y |             |  TOMA DE DECISIONES  |   |
+       |   |  filtrado inicial)             |  (Inferencia/Motor)  |   |
+       |   +------------------+             +----------------------+   |
+       |                                                |              |
+       |   +------------------+                         |              |
+       |   | APRENDIZAJE Y    | <-----------------------+              |
+       |   | MEMORIA (Base de |  Ajuste de conocimiento                |
+       |   | Conocimientos)   |                                        |
+       |   +------------------+                                        |
+       +---------------------------------------------------------------+
+"""
     },
 
     # Poco Común
@@ -214,6 +255,7 @@ TERMINOS = [
     }
 ]
 
+
 def obtener_terminos(query: str = '', nivel_filtro: str = ''):
     """
     Filtra la lista de términos según término de búsqueda y nivel de uso.
@@ -234,9 +276,11 @@ def obtener_terminos(query: str = '', nivel_filtro: str = ''):
             or query in t['nivel'].lower()
             or query in t.get('categoria', '').lower()
             or query in t.get('aplicacion', '').lower()
+            or query in t.get('esquema', '').lower()
         ]
 
     return filtrados
+
 
 def obtener_estadisticas_glosario():
     """

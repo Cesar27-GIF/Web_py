@@ -1,0 +1,10 @@
+Redacion de la resolucion de la problematica
+
+quiero que me des una descripcion de como se resolvio el problema en donde se usos machin leirling for kids entrenando el modelo de reconocimiento de imagenes y una vez entrenada ese modelo se conecto con scrch de machin lergin for kids para hacer un programa para poder usar el modelo de machin atraves des del programa de machin y en el programa de scrach y me de una respusta dependiendo de que imagen se m,ostra el programa me diga quien es atraves de el modelo entrenado 
+
+Quiero que solo me des el problema (todavia no me des la solucion) y quiero que me lo des algo resumido 
+
+
+problematica
+
+
