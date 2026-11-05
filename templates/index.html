@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Educativo de Inteligencia Artificial | Glosario, Historia, Clasificación, Algoritmos de Búsqueda, ML y Ensayo</title>
+    <title>Portal Educativo de Inteligencia Artificial | Glosario, Historia, Clasificación, Algoritmos de Búsqueda, ML, Ensayo y Clasificador ML for Kids</title>
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome 6.4 -->
@@ -99,6 +99,122 @@
         .nivel-poco_comun { background-color: #e0f2fe; color: #0369a1; }
         .nivel-prueba { background-color: #fef3c7; color: #b45309; }
         .nivel-emergente { background-color: #f3e8ff; color: #6b21a8; }
+
+        /* ============================================================ */
+        /* CLASIFICADOR ML FOR KIDS - sección integrada, mismo HTML   */
+        /* Diseño minimalista: blanco / gris / negro, sin emojis      */
+        /* ============================================================ */
+        .ml4k-kicker {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+        .ml4k-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 10px;
+            letter-spacing: -0.01em;
+        }
+        .ml4k-sub {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0 0 24px;
+            line-height: 1.6;
+        }
+        .ml4k-card {
+            background: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+        .ml4k-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+        .ml4k-input {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #111827;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+        .ml4k-input:focus {
+            border-color: #111827;
+        }
+        .ml4k-textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+        .ml4k-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: #111827;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .ml4k-btn:hover:not(:disabled) {
+            background: #000000;
+        }
+        .ml4k-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+        .ml4k-msg {
+            font-size: 13px;
+            min-height: 20px;
+            margin-top: 8px;
+        }
+        .ml4k-msg.ok, .ml4k-msg.error {
+            color: #374151;
+        }
+        .ml4k-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .ml4k-badge.ready {
+            background: #f8fafc;
+        }
+        .ml4k-badge.training, .ml4k-badge.error {
+            background: #f8fafc;
+        }
+        .ml4k-small {
+            font-size: 13px;
+            color: #64748b;
+        }
+        .ml4k-resultado {
+            background: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            padding: 20px;
+        }
 
         /* Línea de tiempo */
         .timeline-container { position: relative; padding: 20px 0; }
@@ -611,6 +727,11 @@
                     <li class="nav-item">
                         <button class="nav-link {% if seccion_activa == 'ensayo' %}active{% endif %}" id="btn-ensayo" onclick="mostrarSeccion('ensayo')">
                             <i class="fa-solid fa-scale-balanced me-2"></i>Ensayo Ético
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link {% if seccion_activa == 'ml4k' %}active{% endif %}" id="btn-ml4k" onclick="mostrarSeccion('ml4k')">
+                            Clasificador ML for Kids
                         </button>
                     </li>
                 </ul>
@@ -1512,6 +1633,43 @@
         <iframe src="/static/Ensayo_Etica_IA.pdf" title="Ensayo: Ética y aspectos sociales de la Inteligencia Artificial" class="ensayo-pdf-frame"></iframe>
     </section>
 
+    <!-- ======================================================================= -->
+    <!-- APARTADO: CLASIFICADOR ML FOR KIDS (clasificador_ml4k_web_unificado.py integrado en el portal) -->
+    <!-- ======================================================================= -->
+    <section id="sec-ml4k" class="py-4 {% if seccion_activa != 'ml4k' %}d-none{% endif %}">
+        <div class="container">
+            <div class="text-center mb-4">
+                <span class="ml4k-kicker">Clasificación de texto</span>
+                <h2 class="ml4k-title">Clasificador ML for Kids</h2>
+                <p class="ml4k-sub">
+                    Clasifica un texto en algoritmos evolutivos, heurísticos, ciegos o desconocidos
+                    usando tu modelo entrenado en Machine Learning for Kids. Todo en una sola pantalla.
+                </p>
+            </div>
+
+            <div class="ml4k-card">
+                <label class="ml4k-label">API Key de Machine Learning for Kids</label>
+                <input type="password" id="ml4k-api-key" class="ml4k-input" placeholder="Pega tu API key" value="4df1f280-d8b8-11f1-9dd6-979fe2bdb61c21a47247-91c5-4685-a78b-af78ee870c43">
+
+                <label class="ml4k-label mt-3">Texto a clasificar</label>
+                <textarea id="ml4k-texto" class="ml4k-input ml4k-textarea" rows="4" placeholder="Escribe el texto que quieres clasificar..."></textarea>
+
+                <button id="ml4k-btn" class="ml4k-btn mt-2" type="button" onclick="clasificarML4K()">Clasificar</button>
+                <div id="ml4k-msg" class="ml4k-msg"></div>
+            </div>
+
+            <div id="ml4k-estado" class="ml4k-card d-none">
+                <span class="ml4k-kicker">Estado del modelo</span>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <span id="ml4k-badge" class="ml4k-badge">No entrenado</span>
+                </div>
+                <p id="ml4k-estado-msg" class="ml4k-small mt-1"></p>
+            </div>
+
+            <div id="ml4k-resultado"></div>
+        </div>
+    </section>
+
     <!-- PIE DE PÁGINA COMÚN A TODOS LOS APARTADOS (compacto) -->
     <footer class="text-center py-2 mt-auto">
         <div class="container">
@@ -1527,6 +1685,8 @@
                 <a href="javascript:void(0)" onclick="mostrarSeccion('ml')" class="text-decoration-none text-muted">Machine Learning (machine_learning.py)</a>
                 <span>&bull;</span>
                 <a href="javascript:void(0)" onclick="mostrarSeccion('ensayo')" class="text-decoration-none text-muted">Ensayo Ético (ensayo.py)</a>
+                <span>&bull;</span>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('ml4k')" class="text-decoration-none text-muted">Clasificador ML for Kids</a>
             </div>
             <p class="mb-0" style="font-size: 0.74rem;">
                 <span class="fw-semibold text-dark">Portal Académico de Inteligencia Artificial &bull; Cesar hessiel arevalo sanchez</span>
@@ -1543,7 +1703,7 @@
     <script>
         // Función para cambiar de sección manteniendo un diseño unificado y reactivo
         function mostrarSeccion(sec) {
-            const secciones = ['glosario', 'timeline', 'clasificacion', 'algoritmos', 'ml', 'ensayo'];
+            const secciones = ['glosario', 'timeline', 'clasificacion', 'algoritmos', 'ml', 'ensayo', 'ml4k'];
             
             secciones.forEach(s => {
                 const elSec = document.getElementById('sec-' + s);
@@ -1656,6 +1816,151 @@
                 resultCard.classList.remove('d-none');
                 btn.disabled = false;
             }
+        }
+        // Clasificador ML for Kids: una sola pantalla (API key + formulario + resultado)
+        function _normML4K(s) {
+            return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+        }
+
+        function colorAlgoritmoML4K(tipo) {
+            const colores = {
+                evolutiva: '#111827',
+                heuristica: '#475569',
+                ciega: '#64748b',
+                desconocida: '#94a3b8'
+            };
+            return colores[tipo] || '#94a3b8';
+        }
+
+        function labelAlgoritmoML4K(tipo) {
+            const etiquetas = {
+                evolutiva: 'Evolutiva',
+                heuristica: 'Heurística',
+                ciega: 'Ciega',
+                desconocida: 'Desconocida'
+            };
+            return etiquetas[tipo] || tipo;
+        }
+
+        async function clasificarML4K() {
+            const apiKey = document.getElementById('ml4k-api-key').value.trim();
+            const texto = document.getElementById('ml4k-texto').value.trim();
+            const btn = document.getElementById('ml4k-btn');
+            const msg = document.getElementById('ml4k-msg');
+            const resultado = document.getElementById('ml4k-resultado');
+
+            if (!apiKey) {
+                msg.textContent = 'Ingresa una API key de Machine Learning for Kids';
+                msg.className = 'ml4k-msg error';
+                return;
+            }
+            if (!texto) {
+                msg.textContent = 'Escribe un texto para clasificar';
+                msg.className = 'ml4k-msg error';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Clasificando...';
+            msg.textContent = '';
+            resultado.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/clasificador-ml4k/classify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify({ text: texto })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error del servidor al clasificar');
+                }
+
+                // Estado del modelo (no bloquea la clasificación)
+                try {
+                    const statusResp = await fetch('/api/clasificador-ml4k/status?api_key=' + encodeURIComponent(apiKey));
+                    const statusData = await statusResp.json();
+                    const divEstado = document.getElementById('ml4k-estado');
+                    const badge = document.getElementById('ml4k-badge');
+                    const msgEstado = document.getElementById('ml4k-estado-msg');
+                    if (statusData.status === 2) {
+                        badge.className = 'ml4k-badge ml4k-badge-ready';
+                        badge.textContent = 'Listo';
+                        msgEstado.textContent = 'El modelo está entrenado y disponible';
+                    } else if (statusData.status === 1) {
+                        badge.className = 'ml4k-badge ml4k-badge-training';
+                        badge.textContent = 'Entrenando';
+                        msgEstado.textContent = statusData.msg || 'El modelo se está entrenando...';
+                    } else {
+                        badge.className = 'ml4k-badge ml4k-badge-error';
+                        badge.textContent = 'No entrenado';
+                        msgEstado.textContent = statusData.msg || 'Entrena tu modelo en ML for Kids primero';
+                    }
+                    divEstado.classList.remove('d-none');
+                } catch (e) {
+                    // El estado no bloquea la clasificación
+                }
+
+                mostrarResultadosML4K(data);
+            } catch (err) {
+                msg.textContent = 'Error de conexión: ' + err.message;
+                msg.className = 'ml4k-msg error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Clasificar';
+            }
+        }
+
+        function mostrarResultadosML4K(data) {
+            const resultado = document.getElementById('ml4k-resultado');
+            const results = (data.classifications || [data.top_result]).filter(Boolean);
+            const top = data.top_result || results[0];
+
+            if (!top) {
+                resultado.innerHTML = '<div class="ml4k-card ml4k-resultado"><p class="ml4k-msg error" style="padding: 16px 0;">No se obtuvieron resultados.</p></div>';
+                return;
+            }
+
+            const conf = top.confidence || 0;
+            const nivel = conf >= 70 ? 'alta' : conf >= 50 ? 'media' : 'baja';
+
+            let html = '<div class="ml4k-card ml4k-resultado">';
+            html += '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 14px;">';
+            html += '<div>';
+            html += '<div style="font-size: 26px; font-weight: 700; color: #111827;">' + top.class_name + '</div>';
+            html += '<div style="font-size: 13px; color: #64748b; margin-top: 2px;">Confianza: <strong>' + nivel + '</strong></div>';
+            html += '</div>';
+            html += '<div style="text-align: right;">';
+            html += '<div style="font-size: 26px; font-weight: 700; color: #111827; font-variant-numeric: tabular-nums;">' + conf + '%</div>';
+            html += '<div style="font-size: 12px; color: #64748b; margin-top: 2px;">Puntuación</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '<div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 16px;">';
+            html += '<span style="display: block; height: 100%; width: ' + conf + '%; background: ' + colorAlgoritmoML4K(_normML4K(top.class_name)) + ';"></span>';
+            html += '</div>';
+
+            if (results.length > 1) {
+                html += '<div style="margin-top: 20px; border-top: 1px solid #f2f2f7; padding-top: 16px;">';
+                html += '<div style="font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; margin-bottom: 12px;">Todas las clasificaciones</div>';
+                results.forEach(function (cls) {
+                    const c = cls.confidence || 0;
+                    html += '<div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #f2f2f7;">';
+                    html += '<span style="font-weight: 500; color: #111827; min-width: 140px;">' + labelAlgoritmoML4K(_normML4K(cls.class_name)) + '</span>';
+                    html += '<div style="flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">';
+                    html += '<span style="display: block; height: 100%; width: ' + c + '%; background: ' + colorAlgoritmoML4K(_normML4K(cls.class_name)) + ';"></span>';
+                    html += '</div>';
+                    html += '<span style="font-size: 13px; font-variant-numeric: tabular-nums; min-width: 44px; text-align: right; color: #64748b;">' + c + '%</span>';
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            resultado.innerHTML = html;
         }
     </script>
 </body>

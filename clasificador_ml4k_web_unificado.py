@@ -342,6 +342,30 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <!-- Resultados -->
   <div id="resultado"></div>
 
+  <!-- Entrenamiento del modelo -->
+  <div class="card">
+    <h2><span class="dot"></span>Entrenamiento del modelo</h2>
+    <p style="font-size: 14px; color: #1d1d1f; margin-bottom: 16px;">
+      El modelo de Machine Learning for Kids se entrena con ejemplos de texto que tú proporcionas para cada clase (ciaga, heurística, evolutiva o desconocida). Durante el entrenamiento, el sistema aprende a reconocer patrones en las palabras y frases de cada categoría para poder clasificarlos automáticamente después.
+    </p>
+    <div style="font-size: 13px; color: #6e6e73;">
+      <p style="margin-bottom: 8px;"><strong>Cómo funciona:</strong></p>
+      <ul style="margin-left: 18px; margin-bottom: 16px;">
+        <li>Recopilas ejemplos de texto para cada tipo de algoritmo.</li>
+        <li>Entrenas el modelo en la plataforma de Machine Learning for Kids.</li>
+        <li>El modelo guarda los patrones aprendidos en una API key única.</li>
+        <li>Esta aplicación consulta ese modelo usando tu API key.</li>
+      </ul>
+      <p><strong>Tipos de algoritmo que detecta:</strong></p>
+      <ul style="margin-left: 18px;">
+        <li><strong>Ciega:</strong> explora sin saber cuán cerca está la meta (BFS, DFS, costo uniforme).</li>
+        <li><strong>Heurística:</strong> usa una estimación para elegir el camino más prometedor (A*, Greedy).</li>
+        <li><strong>Evolutiva:</strong> mejora una población mediante selección, cruce y mutación (algoritmos genéticos).</li>
+        <li><strong>Desconocida:</strong> el texto no encaja con ninguna familia o mezcla varias.</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- Ejemplos -->
   <div class="examples" id="ejemplosArea">
     <h3>Ejemplos</h3>

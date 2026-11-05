@@ -1,6 +1,8 @@
 import os
 import sys
+import unicodedata
 import webbrowser
+import requests
 from threading import Timer
 from flask import Flask, render_template, request, jsonify
 
@@ -16,6 +18,36 @@ app = Flask(__name__)
 
 # Configuración básica
 app.config['JSON_AS_ASCII'] = False
+
+# --- Clasificador ML for Kids (integrado en el portal) ---------------------
+
+# API key por defecto del usuario. Se puede editar desde la misma pantalla
+# sin necesidad de pasos previos de conexión ni recargas.
+ML4K_API_KEY_DEFAULT = "4df1f280-d8b8-11f1-9dd6-979fe2bdb61c21a47247-91c5-4685-a78b-af78ee870c43"
+
+CLASS_TYPES = {"evolutiva", "heuristica", "ciega", "desconocida"}
+
+
+def _norm_ml4k(texto: str) -> str:
+    sin_tildes = unicodedata.normalize("NFD", texto or "").encode("ascii", "ignore").decode()
+    return sin_tildes.strip().lower()
+
+
+def tipo_algoritmo_ml4k(class_name: str) -> str:
+    tipo = _norm_ml4k(class_name)
+    return tipo if tipo in CLASS_TYPES else "desconocida"
+
+
+def nivel_confianza_ml4k(confidence: float) -> str:
+    if confidence >= 70:
+        return "alta"
+    if confidence >= 50:
+        return "media"
+    return "baja"
+
+
+def url_ml4k(api_key: str, endpoint: str) -> str:
+    return f"https://machinelearningforkids.co.uk/api/scratch/{api_key}/{endpoint}"
 
 @app.route('/')
 def index():
@@ -97,6 +129,67 @@ def api_predict_spam():
     resultado = clasificar_mensaje_spam(texto)
     return jsonify(resultado)
 
+@app.route('/api/clasificador-ml4k/classify', methods=['POST'])
+def api_clasificar_ml4k():
+    """
+    Clasifica un texto mediante el modelo entrenado en Machine Learning for Kids.
+    Recibe el texto y usa la API key enviada en la cabecera X-API-Key (o la
+    API key por defecto del portal).
+    """
+    api_key = request.headers.get("X-API-Key") or request.args.get("api_key") or ML4K_API_KEY_DEFAULT
+    if not api_key:
+        return jsonify({"error": "Ingresa una API key de Machine Learning for Kids"}), 400
+
+    data = request.get_json(silent=True) or {}
+    text = (data.get('text') or '').strip()
+    if not text:
+        return jsonify({"error": "Texto vacío"}), 400
+
+    try:
+        response = requests.post(url_ml4k(api_key, "classify"), json={"data": text}, timeout=30)
+        if not response.ok:
+            return jsonify({"error": f"Error del modelo (código {response.status_code}). ¿Está entrenado?"}), response.status_code
+
+        response_data = response.json()
+        if not response_data:
+            return jsonify({"error": "No se detectó ninguna clase"}), 404
+
+        classifications = sorted(response_data, key=lambda x: x.get('confidence', 0), reverse=True)
+        for cls in classifications:
+            conf = round(float(cls.get('confidence', 0)), 1)
+            cls['confidence'] = conf
+            cls['algorithm_type'] = tipo_algoritmo_ml4k(cls.get('class_name'))
+            cls['confidence_pct'] = f"{conf:g}%"
+            cls['confidence_level'] = nivel_confianza_ml4k(conf)
+
+        return jsonify({
+            "classifications": classifications,
+            "top_result": classifications[0]
+        })
+    except requests.exceptions.Timeout:
+        return jsonify({"error": "Timeout: el modelo tardó demasiado en responder"}), 504
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/clasificador-ml4k/status', methods=['GET'])
+def api_estado_ml4k():
+    """
+    Devuelve el estado de entrenamiento del modelo ML for Kids asociado a la
+    API key enviada (cabecera X-API-Key, parámetro api_key o valor por defecto).
+    """
+    api_key = request.headers.get("X-API-Key") or request.args.get("api_key") or ML4K_API_KEY_DEFAULT
+    if not api_key:
+        return jsonify({"status": 0, "msg": "Ingresa tu API key de ML for Kids", "type": "text"})
+    try:
+        resp = requests.get(url_ml4k(api_key, "status"), timeout=10)
+        if resp.ok:
+            return jsonify(resp.json())
+        return jsonify({"status": 0, "msg": f"Error: {resp.status_code} - Modelo no encontrado o no entrenado", "type": "text"})
+    except Exception as e:
+        return jsonify({"status": 0, "msg": str(e), "type": "text"})
+
+
 @app.route('/ensayo/imprimir')
 def ensayo_imprimir():
     """
@@ -121,6 +214,7 @@ if __name__ == '__main__':
     print("  [*] machine_learning.py   -> Teoria + Ejemplo interactivo Naive Bayes")
     print("  [*] ensayo.py             -> Ensayo de Etica y aspectos sociales de la IA")
     print("  [*] algoritmo.py          -> Algoritmos de busqueda + Infografia interactiva")
+    print("  [*] clasificador ML for Kids -> Clasificador de texto integrado en el portal")
     print(" Servidor disponible en: http://127.0.0.1:5000/")
     print("=" * 60)
     Timer(1.2, open_browser).start()
