@@ -1,8 +1,11 @@
+import json
 import os
+import socket
 import sys
 import unicodedata
+import urllib.error
+import urllib.request
 import webbrowser
-import requests
 from threading import Timer
 from flask import Flask, render_template, request, jsonify
 
@@ -146,11 +149,15 @@ def api_clasificar_ml4k():
         return jsonify({"error": "Texto vacío"}), 400
 
     try:
-        response = requests.post(url_ml4k(api_key, "classify"), json={"data": text}, timeout=30)
-        if not response.ok:
-            return jsonify({"error": f"Error del modelo (código {response.status_code}). ¿Está entrenado?"}), response.status_code
-
-        response_data = response.json()
+        payload = json.dumps({"data": text}).encode("utf-8")
+        req = urllib.request.Request(
+            url_ml4k(api_key, "classify"),
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            response_data = json.loads(resp.read().decode("utf-8"))
         if not response_data:
             return jsonify({"error": "No se detectó ninguna clase"}), 404
 
@@ -166,8 +173,12 @@ def api_clasificar_ml4k():
             "classifications": classifications,
             "top_result": classifications[0]
         })
-    except requests.exceptions.Timeout:
-        return jsonify({"error": "Timeout: el modelo tardó demasiado en responder"}), 504
+    except urllib.error.HTTPError as err:
+        return jsonify({"error": f"Error del modelo (código {err.code}). ¿Está entrenado?"}), err.code
+    except urllib.error.URLError as err:
+        if isinstance(err.reason, socket.timeout):
+            return jsonify({"error": "Timeout: el modelo tardó demasiado en responder"}), 504
+        return jsonify({"error": str(err)}), 502
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -182,10 +193,12 @@ def api_estado_ml4k():
     if not api_key:
         return jsonify({"status": 0, "msg": "Ingresa tu API key de ML for Kids", "type": "text"})
     try:
-        resp = requests.get(url_ml4k(api_key, "status"), timeout=10)
-        if resp.ok:
-            return jsonify(resp.json())
-        return jsonify({"status": 0, "msg": f"Error: {resp.status_code} - Modelo no encontrado o no entrenado", "type": "text"})
+        with urllib.request.urlopen(url_ml4k(api_key, "status"), timeout=10) as resp:
+            return jsonify(json.loads(resp.read().decode("utf-8")))
+    except urllib.error.HTTPError as err:
+        return jsonify({"status": 0, "msg": f"Error: {err.code} - Modelo no encontrado o no entrenado", "type": "text"}), 200
+    except urllib.error.URLError as err:
+        return jsonify({"status": 0, "msg": str(err), "type": "text"}), 200
     except Exception as e:
         return jsonify({"status": 0, "msg": str(e), "type": "text"})
 
