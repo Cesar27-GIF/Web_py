@@ -17,7 +17,7 @@ from machine_learning import obtener_info_ml, clasificar_mensaje_spam
 from ensayo import obtener_ensayo
 from algoritmo import obtener_info_algoritmos, obtener_infografia
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 
 # Configuración básica
 app.config['JSON_AS_ASCII'] = False
